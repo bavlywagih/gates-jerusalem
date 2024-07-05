@@ -1,0 +1,75 @@
+.main {
+    background: url(../../../media/img/background.png) no-repeat center;
+    background-size: cover;
+    width: 100%;
+    min-height: 91.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around !important;
+    text-align: center;
+}
+
+/*TODO: add media query*/
+
+.main h2 {
+    color: #fff;
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.main h2 span {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--light-color);
+    font-size: 2em;
+    font-weight: 600;
+    margin-right: 0.75rem;
+}
+
+.main h3 {
+    color: #fff;
+    font-size: 2em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.index-image-container {
+    margin-bottom: 26px;
+}
+
+.name-span {
+    display: block;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.social-icons svg {
+    font-size: 2.5rem;
+}
+
+.social-icons svg:hover {
+    color: var(--main-color);
+}
+
+@media (max-width: 991px) {
+    .main {
+        flex-direction: column-reverse;
+        padding: 2rem 0;
+    }
+
+    .index-details-container {
+        padding: 0 2rem;
+    }
+}

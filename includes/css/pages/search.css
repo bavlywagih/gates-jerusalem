@@ -1,0 +1,25 @@
+.data-not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4rem 0;
+}
+
+.data-not-found img {
+    width: 40%;
+}
+
+.data-not-found p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+}
+
+.result-count {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+    font-weight: 600;
+}

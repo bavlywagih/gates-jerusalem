@@ -1,0 +1,36 @@
+.gates-jerusalem-details-container {
+    display: flex;
+    gap: 2rem;
+    padding: 5rem 2rem;}
+
+.gates-jerusalem-details-container.search {
+    padding: 3rem 1.5rem;
+}
+
+.gates-jerusalem-details-container .image {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gates-jerusalem-details-container .image img {
+    display: block;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.gates-jerusalem-details-container .content {
+    flex-basis: 80%;
+    text-align: justify;
+}
+
+@media (max-width: 767px) {
+    .gates-jerusalem-details-container {
+        flex-direction: column;
+    }
+
+    .gates-jerusalem-details-container .image img {
+        width: 60%;
+    }
+}

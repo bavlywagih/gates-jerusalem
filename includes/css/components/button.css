@@ -1,0 +1,18 @@
+.main-btn {
+    color: #fff;
+    background-color: var(--main-color);
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: inline-block;
+    padding: 1rem 2rem;
+    letter-spacing: 1px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    border: 0;
+}
+
+.main-btn:hover {
+    background-color: var(--secondary-color);
+    color: #fff;
+}

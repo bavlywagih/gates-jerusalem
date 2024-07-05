@@ -1,0 +1,15 @@
+:root {
+    --main-color: #3b82f6;
+    --secondary-color: #2563eb;
+    --light-color: #60a5fa;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    overflow: hidden;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}

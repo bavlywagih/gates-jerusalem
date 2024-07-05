@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة الأبواب</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .map-container {
+            position: relative;
+            width: 480px;
+            height: 640px;
+            background-image: url('www-st-takla-org--sweet-bible-Ne_02_03b.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .gate {
+            position: absolute;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px #fff; /* Adding a shadow to make text stand out on the image */
+        }
+        .gate:hover {
+            text-decoration: underline;
+        }
+        .map-container .gate:nth-child(1) { top: 6%; left: 38%; } /* باب السمك */
+        .map-container .gate:nth-child(2) { top: 6.5%; left: 69%; } /* باب الضأن */
+        .map-container .gate:nth-child(3) { top: 14.5%; left: 75%; } /* باب العد */
+        .map-container .gate:nth-child(4) { top: 24%; left: 74%; } /* باب الشرق */
+        .map-container .gate:nth-child(5) { top: 29.5%; left: 74%; } /* باب الخيل */
+        .map-container .gate:nth-child(6) { top: 83.5%; left: 62%; } /* باب العين */
+        .map-container .gate:nth-child(7) { top: 60%; left: 68%; } /* باب الماء */
+        .map-container .gate:nth-child(8) { top: 24%; left: 8%; } /* باب الدمن */
+        .map-container .gate:nth-child(9) { top: 56%; left: 30%; } /* باب الوادي */
+        .map-container .gate:nth-child(10) { top: 13%; left: 13%; } /* باب العتيق */
+        .map-container .gate:nth-child(11) { top: 29.5%; left: 7%; } /* باب السجن */
+        .map-container .gate:nth-child(12) { top: 86.5%; left: 30%; } /* باب أفرايم */
+    </style>
+</head>
+<body>
+    <div class="map-container">
+        <div class="gate" onclick="openGate('باب السمك')">باب السمك</div>
+        <div class="gate" onclick="openGate('باب الضأن')">باب الضأن</div>
+        <div class="gate" onclick="openGate('باب العد')">باب العد</div>
+        <div class="gate" onclick="openGate('باب الشرق')">باب الشرق</div>
+        <div class="gate" onclick="openGate('باب الخيل')">باب الخيل</div>
+        <div class="gate" onclick="openGate('باب العين')">باب العين</div>
+        <div class="gate" onclick="openGate('باب الماء')">باب الماء</div>
+        <div class="gate" onclick="openGate('باب الدمن')">باب الدمن</div>
+        <div class="gate" onclick="openGate('باب الوادي')">باب الوادي</div>
+        <div class="gate" onclick="openGate('باب العتيق')">باب العتيق</div>
+        <div class="gate" onclick="openGate('باب السجن')">باب السجن</div>
+        <div class="gate" onclick="openGate('باب أفرايم')">باب أفرايم</div>
+    </div>
+
+    <script>
+        function openGate(gateName) {
+            alert("فتح صفحة " + gateName);
+            // Example: window.location.href = gateName + ".html";
+        }
+    </script>
+</body>
+</html>
