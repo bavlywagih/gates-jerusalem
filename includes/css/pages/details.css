@@ -34,3 +34,26 @@
         width: 60%;
     }
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.arrow-button {
+    border: 0;
+    margin: 0.5rem;
+    /* Assuming m-2 corresponds to a margin of 0.5rem */
+    background: none;
+    /* Optional: to remove default button background */
+    padding: 1rem;
+    /* Increase padding to make buttons larger */
+    cursor: pointer;
+    /* Optional: to change cursor on hover */
+    font-size: 2rem;
+    /* Increase font size to make icons larger */
+}
+
+.arrow-button i {
+    font-size: 2rem;
+    /* Ensure icons are large */
+}

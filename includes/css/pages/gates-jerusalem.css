@@ -61,3 +61,17 @@
 .tox-statusbar__right-container{
     display: none !important;
 }
+
+@media (max-width: 991px) {
+    .card-w-90 {
+        width: 100% !important;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .card-w-90 {
+        width: 100% !important;
+    }
+}
+

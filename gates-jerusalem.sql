@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2024 at 05:44 PM
+-- Generation Time: Jul 10, 2024 at 12:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,18 +38,17 @@ CREATE TABLE `gates` (
 --
 
 INSERT INTO `gates` (`id`, `name`, `text`) VALUES
-(54, 'الباب الاول', '<p>الباب الاول</p>'),
-(55, 'الباب الثاني', '<p>الباب الثاني</p>'),
-(56, 'الباب الثالث', ''),
-(57, 'الباب الرابع', '<p>يببي</p>\r\n<p>&nbsp;</p>'),
-(58, 'الباب الخامس', '<p>الباب الخامس</p>'),
-(59, 'الباب السادس', '<p>الباب السادس</p>\r\n<p>&nbsp;</p>'),
-(60, 'الباب السابع', '<p style=\"text-align: right;\">الباب السابع</p>\r\n<p style=\"text-align: right;\">&nbsp;</p>'),
-(63, 'الباب الثامن', '<p>الباب الثامن</p>'),
-(69, 'الباب التاسع ', '<p>الباب التاسع&nbsp;</p>'),
-(70, 'الباب العاشر', '<p>الباب العاشر</p>'),
-(83, 'البابا الحادي عشر', '<h1 style=\"text-align: center;\"><span style=\"background-color: #f1c40f;\">البابا الحادي عشر</span></h1>'),
-(84, 'الباب الثاني عشر', '<h1 style=\"text-align: center;\"><span style=\"background-color: #f1c40f;\"><strong>الباب الثاني عشر</strong></span></h1>');
+(90, 'الباب الاول', '<p>الباب الاول</p>'),
+(91, 'الباب الثاني', '<p>الباب الثاني</p>'),
+(92, 'الباب الثالث', ''),
+(93, 'الباب الرابع', '<p>يببي</p>\r\n<p>&nbsp;</p>'),
+(94, 'الباب الخامس', '<p>الباب الخامس</p>'),
+(95, 'الباب السادس', '<p>الباب السادس</p>\r\n<p>&nbsp;</p>'),
+(96, 'الباب السابع', '<p style=\"text-align: right;\">الباب السابع</p>\r\n<p style=\"text-align: right;\">&nbsp;</p>'),
+(97, 'الباب الثامن', '<p>الباب الثامن</p>'),
+(98, 'الباب التاسع ', '<p>الباب التاسع&nbsp;</p>'),
+(99, 'الباب العاشر', '<p>الباب العاشر</p>'),
+(100, 'البابا الحادي عشر', '<h1 style=\"text-align: center;\"><span style=\"background-color: #f1c40f;\">البابا الحادي عشر</span></h1>');
 
 -- --------------------------------------------------------
 
@@ -70,7 +69,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `group-id`) VALUES
-(1, 'bavly', '172008', 'bavly wagih samir', 0),
+(1, 'bavly', '172008', 'bavly wagih samir', 1),
 (2, 'مكمك', '77889900', 'بافلي', 0);
 
 --
@@ -102,7 +101,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `gates`
 --
 ALTER TABLE `gates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `users`
