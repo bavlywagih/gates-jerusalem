@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-inset">
-                    <li><a class="dropdown-item dropdown-item-details-styles" href="details-edit.php?gates-jerusalem-Id-edit=<?php echo $row['id']; ?>">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
+                    <li><a class="dropdown-item dropdown-item-details-styles" href="#">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
                     <li><a class="dropdown-item dropdown-item-details-styles" href="#">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
                 </ul>
             </div>
@@ -47,10 +47,9 @@ if (isset($_SESSION['username'])) {
                 <br>
                 <br>
                 <br>
-
                 <div class="button-container">
-                    <button id="increase" class="arrow-button m-2"><i class="fa-solid fa-arrow-right"></i></button>
-                    <button id="decrease" class="arrow-button m-2"><i class="fa-solid fa-arrow-left"></i></button>
+                    <a href=""><button id="increase" class="arrow-button m-2"><i class="fa-solid fa-arrow-right"></i></button></a>
+                    <a href=""><button id="decrease" class="arrow-button m-2"><i class="fa-solid fa-arrow-left"></i></button></a>
                 </div>
             </div>
         </div>
