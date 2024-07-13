@@ -197,7 +197,7 @@ if (isset($_SESSION['username'])) {
             setTimeout(function() {
                 window.location.href = "gates-jerusalem.php";
                 toast.hide();
-            }, 4000); // Hide after 2 seconds
+            }, 4000); 
         });
     </script>
 <?php } else {
