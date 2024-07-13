@@ -1,8 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-    if (empty($_GET['gates-jerusalem-Id'])) {
-        // إعادة توجيه المستخدم إلى 'gates-jerusalem.php'
+    if (empty($_GET['gates-jerusalem-Id-edit'])) {
         header('Location: gates-jerusalem.php');
         exit();
     }
@@ -11,7 +10,7 @@ if (isset($_SESSION['username'])) {
     require_once 'connect.php';
     require_once 'functions.php';
 
-    $gates_jerusalem_Id = $_GET['gates-jerusalem-Id'];
+    $gates_jerusalem_Id = $_GET['gates-jerusalem-Id-edit'];
     $query = "SELECT * FROM gates WHERE id = $gates_jerusalem_Id";
     $stmt = $pdo->query($query);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -20,37 +19,39 @@ if (isset($_SESSION['username'])) {
         header('location: gates-jerusalem.php');
         exit();
     } else {
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $name = $_POST['name'];
+            $text = $_POST['text'];
+            $sql = "UPDATE gates SET text = :text, name = :name WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':text', $text, PDO::PARAM_STR);
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT); // $gates_jerusalem_Id هو رقم السجل المعدل
+            $stmt->execute();
+        header('location: gates-jerusalem.php');
+        exit();
+    }
 
 ?>
         <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 120px auto; min-height: 415px;">
-            <div class="dropdown" style="display: flex; flex-direction: row-reverse;">
-                <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-inset">
-                    <li><a class="dropdown-item dropdown-item-details-styles" href="#">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
-                    <li><a class="dropdown-item dropdown-item-details-styles" href="#">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
-                </ul>
-            </div>
             <div class="content">
-                <h3 class="text-black"><b><?php echo  $row['name']; ?></b></h3>
-                <h2 class="card-title opacity-75"><?php echo $row['text']; ?></h2>
-                <a class="mt-3 text-primary d-block text-start" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات...</a>
-                <a class="mt-3 text-primary d-block text-start" href="gates-jerusalem.php">إلي صفحة السابقة...</a>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <div class="button-container">
-                    <a href=""><button id="increase" class="arrow-button m-2"><i class="fa-solid fa-arrow-right"></i></button></a>
-                    <a href=""><button id="decrease" class="arrow-button m-2"><i class="fa-solid fa-arrow-left"></i></button></a>
-                </div>
+                <h3 class="text-black text-center">تعديل <b><?php echo  $row['name']; ?> </b></h3>
+
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <div class="d-flex flex-column">
+                            <label for="file-picker" class="form-label">اسم الباب : </label>
+                            <input type="text" require class="form-control" name="name" placeholder="اكتب اسم الباب هنا" value="<?php echo  $row['name']; ?>">
+                        </div>
+                        <div class="my-2">
+                            <label for="file-picker" class="form-label"> شرح : </label>
+                            <textarea class="form-control " require name="text" id="post-editor" rows="5"><?php echo $row['text']; ?></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="width: 100%;">ارسال</button>
+                </form>
+
+
             </div>
         </div>
 
@@ -81,7 +82,7 @@ if (isset($_SESSION['username'])) {
             function updateURL(increment) {
                 const url = new URL(window.location.href);
                 const searchParams = new URLSearchParams(url.search);
-                const paramKey = 'gates-jerusalem-Id';
+                const paramKey = 'gates-jerusalem-Id-edit';
                 let currentId = parseInt(searchParams.get(paramKey));
 
                 if (!isNaN(currentId)) {
@@ -122,7 +123,7 @@ if (isset($_SESSION['username'])) {
             window.onload = function() {
                 const url = new URL(window.location.href);
                 const searchParams = new URLSearchParams(url.search);
-                const paramKey = 'gates-jerusalem-Id';
+                const paramKey = 'gates-jerusalem-Id-edit';
                 let currentId = parseInt(searchParams.get(paramKey));
 
                 if (currentId >= 12) {
