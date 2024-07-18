@@ -36,6 +36,7 @@ body {
         8px 8px 15px #a7aaa7,
         -8px -8px 15px #fff;
 }
+
 .icon-user{
     width: 100px !important;
     height: 100px !important;
@@ -43,9 +44,7 @@ body {
 
 .wrapper .name {
     font-weight: 600;
-    font-size: 1.4rem;
     letter-spacing: 1.3px;
-    padding-left: 10px;
     color: #555;
     font-family: 'Changa', sans-serif;
 }
@@ -54,18 +53,10 @@ body {
     font-family: 'Changa', sans-serif;
 
 }
-.wrapper .form-field input {
-    width: 100%;
-    display: block;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.2rem;
-    color: #666;
-    padding: 10px 15px 10px 10px;
-    /* border: 1px solid red; */
-    font-family: 'Changa', sans-serif;
+.user-form-signup {
+    color: #1a00ae !important;
 }
+
 
 .wrapper .form-field {
     padding-left: 10px;
@@ -109,4 +100,23 @@ body {
         margin: 30px 20px;
         padding: 40px 15px 15px 15px;
     }
+}
+
+.login-form-password{
+    border-right: none;
+        border-left: 1px solid #ced4da;
+        border-top: 1px solid #ced4da;
+        border-bottom: 1px solid #ced4da;
+}
+.div-hide-password-login-form:hover{
+    background-color: #e6e6e6;
+    transition: 0.2s all ease-in-out;
+}
+.div-hide-password-login-form{
+    display: block;
+
+    border-left: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+    border-top: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
 }

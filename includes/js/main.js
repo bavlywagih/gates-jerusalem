@@ -1,4 +1,3 @@
-// Go to top button
 let span = document.querySelector(".up");
 
 window.onscroll = function () {
@@ -12,12 +11,21 @@ span.onclick = function () {
     });
 };
 
-// Loading spinner
 let spinnerWrapper = document.querySelector('.spinner-wrapper');
 
 window.addEventListener('load', () => {
     setTimeout(() => {
         spinnerWrapper.remove();
         document.body.style.overflow = 'auto';
-    }, 1000); // تأخير لمدة 2 ثانية (2000 مللي ثانية)
+    }, 1000); 
+});
+
+$(function name(params) {
+    'use strict';
+    $('[placeholder]').focus(function () {
+        $(this).attr('data-text', $(this).attr('placeholder'));
+        $(this).attr('placeholder', '');
+    }).blur(function () {
+        $(this).attr('placeholder', $(this).attr('data-text'));
+    });
 });

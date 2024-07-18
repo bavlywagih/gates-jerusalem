@@ -7,6 +7,8 @@ if (isset($_SESSION['username'])) {
     require_once 'connect.php';
     require_once 'functions.php';
 
+
+
     $query = "SELECT * FROM gates ORDER BY id desc";
 
     $stmt = $pdo->query($query);
@@ -30,9 +32,11 @@ if (isset($_SESSION['username'])) {
         } else {
             $text = $_POST['text'];
             $name = $_POST['name'];
+            $id_select = $_POST['id_select'];
 
-            $sql = "INSERT INTO gates (name, text) VALUES (:name, :text)";
+            $sql = "INSERT INTO gates (name, text , id) VALUES (:name, :text , :id)";
             $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':id', $id_select, PDO::PARAM_STR);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':text', $text, PDO::PARAM_STR);
 
@@ -52,7 +56,10 @@ if (isset($_SESSION['username'])) {
             }
         }
     }
+
+
 ?>
+
     <?php
     if ($row_count != 12) {
         if ($_SESSION['group-id'] == 1) {
@@ -71,6 +78,24 @@ if (isset($_SESSION['username'])) {
                                 <div class="my-2">
                                     <label for="file-picker" class="form-label"> شرح : </label>
                                     <textarea class="form-control " require name="text" id="post-editor" rows="5"></textarea>
+                                </div>
+                                <div class="my-2">
+                                    <label for="file-picker" class="form-label"> اختيار ال ID : </label>
+                                    <select class="form-select" name="id_select" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+
+                                        <?php
+                                        $id_sql = "SELECT id FROM gates";
+                                        $stmt_id = $pdo->query($id_sql);
+                                        $existing_ids = $stmt_id->fetchAll(PDO::FETCH_COLUMN);
+                                        for ($i = 1; $i <= 12; $i++) {
+                                            if (!in_array($i, $existing_ids)) {
+                                                echo '<option value="' . $i . '">' . $i . '</option>';
+                                            }
+                                        }
+                                        ?>
+
+                                    </select>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success" style="width: 100%;">ارسال</button>
@@ -197,7 +222,7 @@ if (isset($_SESSION['username'])) {
             setTimeout(function() {
                 window.location.href = "gates-jerusalem.php";
                 toast.hide();
-            }, 4000); // Hide after 2 seconds
+            }, 2000);
         });
     </script>
 <?php } else {

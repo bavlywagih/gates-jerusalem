@@ -26,13 +26,14 @@ if (isset($_SESSION['username'])) {
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':text', $text, PDO::PARAM_STR);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-            $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT); // $gates_jerusalem_Id هو رقم السجل المعدل
+            $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT); 
             $stmt->execute();
         header('location: gates-jerusalem.php');
         exit();
     }
 
 ?>
+
         <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 120px auto; min-height: 415px;">
             <div class="content">
                 <h3 class="text-black text-center">تعديل <b><?php echo  $row['name']; ?> </b></h3>
@@ -50,8 +51,6 @@ if (isset($_SESSION['username'])) {
                     </div>
                     <button type="submit" class="btn btn-success" style="width: 100%;">ارسال</button>
                 </form>
-
-
             </div>
         </div>
 
@@ -59,17 +58,12 @@ if (isset($_SESSION['username'])) {
             document.addEventListener('copy', function(event) {
                 let selectedText = window.getSelection().toString();
                 selectedText += '\nاقرأ المزيد عن هذا البطرك من ذلك الرابط: <?php echo $currentPageURL; ?> ';
-
-                // منع الحدث الافتراضي لتغيير النص المنسوخ
                 event.preventDefault();
-
-                // وضع النص المعدل في الحافظة
                 if (event.clipboardData) {
                     event.clipboardData.setData('text/plain', selectedText);
                 } else if (window.clipboardData) {
                     window.clipboardData.setData('Text', selectedText);
                 }
-
                 console.log('Async: Copying to clipboard was successful!');
             });
 
@@ -87,20 +81,18 @@ if (isset($_SESSION['username'])) {
 
                 if (!isNaN(currentId)) {
                     currentId += increment;
-
-                    // تحقق من الحدود العليا والدنيا للقيمة
                     if (currentId >= 12) {
                         currentId = 12;
-                        document.getElementById('increase').style.display = 'none'; // إخفاء زر الزيادة
+                        document.getElementById('increase').style.display = 'none'; 
                     } else {
-                        document.getElementById('increase').style.display = 'inline'; // إظهار زر الزيادة إذا كان أقل من 12
+                        document.getElementById('increase').style.display = 'inline';
                     }
 
                     if (currentId <= 1) {
                         currentId = 1;
-                        document.getElementById('decrease').style.display = 'none'; // إخفاء زر النقصان
+                        document.getElementById('decrease').style.display = 'none'; 
                     } else {
-                        document.getElementById('decrease').style.display = 'inline'; // إظهار زر النقصان إذا كان أكبر من 1
+                        document.getElementById('decrease').style.display = 'inline'; 
                     }
 
                     searchParams.set(paramKey, currentId);
@@ -119,7 +111,6 @@ if (isset($_SESSION['username'])) {
                 updateURL(-1);
             });
 
-            // فحص إذا كان يجب إخفاء الأزرار عند تحميل الصفحة
             window.onload = function() {
                 const url = new URL(window.location.href);
                 const searchParams = new URLSearchParams(url.search);
@@ -135,22 +126,10 @@ if (isset($_SESSION['username'])) {
                 }
             }
         </script>
-
 <?php
     }
 }
 
 
-
-
 require_once './includes/layout/footer.php';
-
-
-
 ?>
-
-
-<!-- <div class="image">
-                    <img  style="" alt="patriarch_" />
-                </div> -->
-<!--
