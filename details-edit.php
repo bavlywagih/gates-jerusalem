@@ -33,6 +33,7 @@ if (isset($_SESSION['username'])) {
     }
 
 ?>
+
         <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 120px auto; min-height: 415px;">
             <div class="content">
                 <h3 class="text-black text-center">تعديل <b><?php echo  $row['name']; ?> </b></h3>
@@ -128,6 +129,7 @@ if (isset($_SESSION['username'])) {
 <?php
     }
 }
+
 
 require_once './includes/layout/footer.php';
 ?>

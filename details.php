@@ -27,9 +27,9 @@ if (isset($_SESSION['username'])) {
                 <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-inset">
+                <ul class="dropdown-menu dropdown-menu-inset" style="z-index: 0;">
                     <li><a class="dropdown-item dropdown-item-details-styles" href="details-edit.php?gates-jerusalem-Id-edit=<?php echo $row['id']; ?>">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
-                    <li><a class="dropdown-item dropdown-item-details-styles" href="#">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
+                    <li><a class="dropdown-item dropdown-item-details-styles" href="details-delete.php?gates-jerusalem-Id-delete=<?php echo $row['id']; ?>">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
                 </ul>
             </div>
             <div class="content">
