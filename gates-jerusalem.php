@@ -200,9 +200,27 @@ if (isset($_SESSION['username'])) {
                 top: 86.5%;
                 left: 30%;
             }
+
+            .gate-pdf {
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                text-shadow: 1px 1px 2px #fff;
+                left: 3%;
+                position: absolute;
+                top: 1%;
+            }
+            .gate-word {
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                text-shadow: 1px 1px 2px #fff;
+                left: 20%;
+                position: absolute;
+                top: 1%;
+            }
         </style>
         <div class="map-container m-auto my-2">
-
             <?php
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
@@ -210,6 +228,8 @@ if (isset($_SESSION['username'])) {
             <?php
             }
             ?>
+            <div class="gate-pdf "><a href="download/gates-jerusalem-download-pdf.php">حفظ pdf</a></div>
+            <div class="gate-word "><a href="download/gates-jerusalem-download-word.php">حفظ word</a></div>
 
         </div>
     <?php } ?>

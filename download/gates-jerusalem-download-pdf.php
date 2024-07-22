@@ -1,6 +1,6 @@
 <?php
 require_once '../connect.php';
-require_once '../tcpdf/tcpdf.php';
+require_once 'pdf_downloader/tcpdf.php';
 
 // Fetch data from database
 $sql = "SELECT id, name, text FROM gates";
@@ -40,16 +40,17 @@ $pdf->AddPage();
 // Create HTML content
 $html = '<h1 style="text-align:right;">تصدير البيانات</h1>';
 $html .= '<table border="1" cellpadding="4" cellspacing="0" style="text-align:right;">';
-$html .= '<thead><tr><th>النص</th><th>الاسم</th><th>معرف</th></tr></thead>';
+$html .= '<thead><tr><th>الاسم</th><th>معرف</th></tr></thead>';
 $html .= '<tbody>';
 foreach ($results as $row) {
     $html .= '<tr>';
-    $html .= '<td>' . htmlspecialchars($row['text']) . '</td>';
     $html .= '<td>' . htmlspecialchars($row['name']) . '</td>';
     $html .= '<td>' . htmlspecialchars($row['id']) . '</td>';
     $html .= '</tr>';
 }
 $html .= '</tbody></table>';
+$html .= '<h2 style="text-align:right;">http://localhost/gates-jerusalem/gates-jerusalem.php</h2>';
+
 
 // Output the HTML content
 $pdf->writeHTML($html, true, false, true, false, '');
