@@ -210,6 +210,7 @@ if (isset($_SESSION['username'])) {
                 position: absolute;
                 top: 1%;
             }
+
             .gate-word {
                 color: #000;
                 font-weight: bold;
@@ -218,6 +219,18 @@ if (isset($_SESSION['username'])) {
                 left: 20%;
                 position: absolute;
                 top: 1%;
+            }
+
+            @media print {
+                .no-print {
+                    display: none;
+                }
+
+                body {
+                    -webkit-print-color-adjust: exact;
+                }
+
+
             }
         </style>
         <div class="map-container m-auto my-2">
@@ -228,9 +241,7 @@ if (isset($_SESSION['username'])) {
             <?php
             }
             ?>
-            <div class="gate-pdf "><a href="download/gates-jerusalem-download-pdf.php">حفظ pdf</a></div>
-            <div class="gate-word "><a href="download/gates-jerusalem-download-word.php">حفظ word</a></div>
-
+            <div class="gate-pdf "><a class="no-print" onclick="printPage()">حفظ pdf</a></div>
         </div>
     <?php } ?>
     <script>
@@ -244,6 +255,10 @@ if (isset($_SESSION['username'])) {
                 toast.hide();
             }, 2000);
         });
+
+        function printPage() {
+            window.print();
+        }
     </script>
 <?php } else {
     header('location: login.php');

@@ -23,7 +23,7 @@ if (isset($_SESSION['username'])) {
 
 
 
-<nav class="navbar navbar-expand-lg bg-dark">
+<nav class="navbar navbar-expand-lg bg-dark no-print">
     <div class="container-fluid">
         <a class="navbar-brand text-white d-flex align-items-center link-gates-jerusalem" href="index.php">
             <img src="http://localhost/gates-jerusalem/media/img/logo.png" class="logo-gates-jerusalem" alt="logo-gates-jerusalem">

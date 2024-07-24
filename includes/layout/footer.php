@@ -9,7 +9,7 @@
 </style>
 <span class="up"><i class="fa-solid fa-chevron-up"></i></span>
 
-<footer>
+<footer class="no-print">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-md-3 links">
