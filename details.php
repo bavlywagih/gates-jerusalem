@@ -22,6 +22,20 @@ if (isset($_SESSION['username'])) {
 
 
 ?>
+
+        <style>
+            @media print {
+                .no-print {
+                    display: none;
+                }
+
+                body {
+                    -webkit-print-color-adjust: exact;
+                }
+
+
+            }
+        </style>
         <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 120px auto; min-height: 415px;">
             <div class="dropdown" style="display: flex; flex-direction: row-reverse;">
                 <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -30,12 +44,12 @@ if (isset($_SESSION['username'])) {
                 <ul class="dropdown-menu dropdown-menu-inset" style="z-index: 0;">
                     <li><a class="dropdown-item dropdown-item-details-styles" href="details-edit.php?gates-jerusalem-Id-edit=<?php echo $row['id']; ?>">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
                     <li><a class="dropdown-item dropdown-item-details-styles" href="details-delete.php?gates-jerusalem-Id-delete=<?php echo $row['id']; ?>">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
+                    <li><a class="dropdown-item dropdown-item-details-styles" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
                 </ul>
             </div>
             <div class="content">
                 <h3 class="text-black"><b><?php echo  $row['name']; ?></b></h3>
                 <h2 class="card-title opacity-75"><?php echo $row['text']; ?></h2>
-                <a class="mt-3 text-primary d-block text-start" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات...</a>
                 <a class="mt-3 text-primary d-block text-start" href="gates-jerusalem.php">إلي صفحة السابقة...</a>
                 <br>
                 <br>
@@ -85,13 +99,13 @@ if (isset($_SESSION['username'])) {
                         currentId = 12;
                         document.getElementById('increase').style.display = 'none';
                     } else {
-                        document.getElementById('increase').style.display = 'inline'; 
+                        document.getElementById('increase').style.display = 'inline';
                     }
                     if (currentId <= 1) {
                         currentId = 1;
-                        document.getElementById('decrease').style.display = 'none'; 
+                        document.getElementById('decrease').style.display = 'none';
                     } else {
-                        document.getElementById('decrease').style.display = 'inline'; 
+                        document.getElementById('decrease').style.display = 'inline';
                     }
 
                     searchParams.set(paramKey, currentId);
@@ -122,6 +136,10 @@ if (isset($_SESSION['username'])) {
                 if (currentId <= 1) {
                     document.getElementById('decrease').style.display = 'none';
                 }
+            }
+
+            function printPage() {
+                window.print();
             }
         </script>
 
