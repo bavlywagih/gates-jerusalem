@@ -49,7 +49,7 @@ if (isset($_SESSION['username'])) {
             </div>
             <div class="content">
                 <h3 class="text-black"><b><?php echo  $row['name']; ?></b></h3>
-                <h2 class="card-title opacity-75"><?php echo $row['text']; ?></h2>
+                <h2 class="card-title"><?php echo $row['text']; ?></h2>
                 <a class="mt-3 text-primary d-block text-start" href="gates-jerusalem.php">إلي صفحة السابقة...</a>
                 <br>
                 <br>
