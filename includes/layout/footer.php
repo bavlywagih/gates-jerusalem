@@ -47,22 +47,38 @@
 <script src="http://localhost/gates-jerusalem/includes/js/popper.min.js"></script>
 <script src="http://localhost/gates-jerusalem/includes/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://localhost/gates-jerusalem/includes/js/main.js"></script>
+
 <script>
     tinymce.init({
         selector: 'textarea#post-editor',
         height: 500,
+        license_key: 'gpl',
+
         plugins: [
             'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
             'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
             'insertdatetime', 'media', 'table', 'help', 'wordcount', 'directionality'
         ],
-        toolbar: 'undo redo | blocks | ' +
-            'bold italic backcolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help | ltr rtl ',
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+        toolbar: 'undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help searchreplace | ltr rtl | addButton',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
     });
 </script>
+
+
+
+
+<script defer>
+    // البحث عن العناصر التي تحتوي على data-mce-name="add"
+    var elements = document.querySelectorAll('[data-mce-name="add"]');
+
+    // التحقق مما إذا كان هناك عناصر بهذا التحديد
+    if (elements.length > 0) {
+        console.log('hahahaha');
+    } else {
+        console.log('a7a');
+    }
+</script>
+
 </body>
 
 </html>

@@ -19,18 +19,18 @@ if (isset($_SESSION['username'])) {
         header('location: gates-jerusalem.php');
         exit();
     } else {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = $_POST['name'];
             $text = $_POST['text'];
             $sql = "UPDATE gates SET text = :text, name = :name WHERE id = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':text', $text, PDO::PARAM_STR);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-            $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT); 
+            $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT);
             $stmt->execute();
-        header('location: gates-jerusalem.php');
-        exit();
-    }
+            header('location: gates-jerusalem.php');
+            exit();
+        }
 
 ?>
 
@@ -83,16 +83,16 @@ if (isset($_SESSION['username'])) {
                     currentId += increment;
                     if (currentId >= 12) {
                         currentId = 12;
-                        document.getElementById('increase').style.display = 'none'; 
+                        document.getElementById('increase').style.display = 'none';
                     } else {
                         document.getElementById('increase').style.display = 'inline';
                     }
 
                     if (currentId <= 1) {
                         currentId = 1;
-                        document.getElementById('decrease').style.display = 'none'; 
+                        document.getElementById('decrease').style.display = 'none';
                     } else {
-                        document.getElementById('decrease').style.display = 'inline'; 
+                        document.getElementById('decrease').style.display = 'inline';
                     }
 
                     searchParams.set(paramKey, currentId);

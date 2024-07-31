@@ -42,9 +42,15 @@ if (isset($_SESSION['username'])) {
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-inset" style="z-index: 0;">
-                    <li><a class="dropdown-item dropdown-item-details-styles" href="details-edit.php?gates-jerusalem-Id-edit=<?php echo $row['id']; ?>">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
-                    <li><a class="dropdown-item dropdown-item-details-styles" href="details-delete.php?gates-jerusalem-Id-delete=<?php echo $row['id']; ?>">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
-                    <li><a class="dropdown-item dropdown-item-details-styles" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
+                    <?php
+                    if ($_SESSION['group-id'] == 1) {
+                    ?>
+                        <li><a class="dropdown-item dropdown-item-details-styles" href="details-edit.php?gates-jerusalem-Id-edit=<?php echo $row['id']; ?>">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
+                        <li><a class="dropdown-item dropdown-item-details-styles" href="details-delete.php?gates-jerusalem-Id-delete=<?php echo $row['id']; ?>">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
+                    <?php
+                    }
+                    ?>
+                    <li><a class="dropdown-item dropdown-item-details-styles" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a></li>
                 </ul>
             </div>
             <div class="content">
@@ -68,23 +74,7 @@ if (isset($_SESSION['username'])) {
             </div>
         </div>
 
-        <script>
-            document.addEventListener('copy', function(event) {
-                let selectedText = window.getSelection().toString();
-                selectedText += '\nاقرأ المزيد عن هذا البطرك من ذلك الرابط: <?php echo $currentPageURL; ?> ';
-                event.preventDefault();
-                if (event.clipboardData) {
-                    event.clipboardData.setData('text/plain', selectedText);
-                } else if (window.clipboardData) {
-                    window.clipboardData.setData('Text', selectedText);
-                }
-                console.log('Async: Copying to clipboard was successful!');
-            });
-
-            window.onload = () => {
-                console.log('Loaded');
-            };
-        </script>
+        
 
         <script>
             function updateURL(increment) {
