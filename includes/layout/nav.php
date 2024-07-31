@@ -3,6 +3,7 @@
 $activeHome = $currentPageURL === "http://localhost/gates-jerusalem" || $currentPageURL === "http://localhost/gates-jerusalem/index.php";
 $activeContent = $currentPageURL === "http://localhost/gates-jerusalem/gates-jerusalem.php";
 $activeSearchPage = $currentPageURL === "http://localhost/gates-jerusalem/search.php";
+$activeaddPage = $currentPageURL === "http://localhost/gates-jerusalem/add-pages.php";
 $activelogin = $currentPageURL === "http://localhost/gates-jerusalem/login.php";
 $activesignup = $currentPageURL === "http://localhost/gates-jerusalem/signup.php";
 
@@ -40,7 +41,15 @@ if (isset($_SESSION['username'])) {
                 <li class="nav-item">
                     <a class="nav-link text-white <?php echo $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
                 </li>
-
+                <?php
+                    if ($_SESSION['group-id'] == 1) {
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
+                </li>
+                <?php 
+                    }
+                ?>
             </ul>
             <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
                 <label for="search-input" class="visually-hidden"></label>

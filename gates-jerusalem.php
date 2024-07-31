@@ -65,7 +65,7 @@ if (isset($_SESSION['username'])) {
         if ($_SESSION['group-id'] == 1) {
     ?>
 
-            <div class="container my-3">
+            <div class="container my-3 no-print">
                 <div class="card rounded-3 card-w-90" style="width: 60%; margin: auto;">
                     <div class="card-body m-auto">
                         <h5 class="card-title text-center">انشاء باب من ابواب اورشليم</h5>
@@ -260,6 +260,9 @@ if (isset($_SESSION['username'])) {
             window.print();
         }
     </script>
+
+
+
 <?php } else {
     header('location: login.php');
     exit();
