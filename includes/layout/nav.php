@@ -1,14 +1,23 @@
 <?php
+            $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-$activeHome = $currentPageURL === "http://localhost/gates-jerusalem" || $currentPageURL === "http://localhost/gates-jerusalem/index.php";
-$activeContent = $currentPageURL === "http://localhost/gates-jerusalem/gates-jerusalem.php";
-$activeSearchPage = $currentPageURL === "http://localhost/gates-jerusalem/search.php";
-$activeaddPage = $currentPageURL === "http://localhost/gates-jerusalem/add-pages.php";
-$activelogin = $currentPageURL === "http://localhost/gates-jerusalem/login.php";
-$activesignup = $currentPageURL === "http://localhost/gates-jerusalem/signup.php";
+            // تحليل عنوان URL
+            $urlParts = parse_url($currentUrl);
+
+            // استخراج مسار URL وإزالة اسم الصفحة
+            $path = $urlParts['path'];
+            $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
+
+
+$activeHome = $currentPageURL  === $baseUrl  . "/index.php";
+$activeContent = $currentPageURL === $baseUrl  . "/gates-jerusalem.php";
+$activeSearchPage = $currentPageURL === $baseUrl  . "/search.php";
+$activeaddPage = $currentPageURL === $baseUrl  . "/add-pages.php";
+$activelogin = $currentPageURL === $baseUrl  . "/login.php";
+$activesignup = $currentPageURL === $baseUrl  . "/signup.php";
 
 if (isset($_GET["search"])) {
-    $activeSearch = $currentPageURL === "http://localhost/gates-jerusalem/search.php?search=" . $_GET['search'];
+    $activeSearch = $currentPageURL === $baseUrl  . "/search.php?search=" . $_GET['search'];
 } else {
     $activeSearch = ' ';
 }
@@ -27,7 +36,7 @@ if (isset($_SESSION['username'])) {
 <nav class="navbar navbar-expand-lg bg-dark no-print">
     <div class="container-fluid">
         <a class="navbar-brand text-white d-flex align-items-center link-gates-jerusalem" href="index.php">
-            <img src="http://localhost/gates-jerusalem/media/img/logo.png" class="logo-gates-jerusalem" alt="logo-gates-jerusalem">
+            <img src="media/img/logo.png" class="logo-gates-jerusalem" alt="logo-gates-jerusalem">
             بافلي
         </a>
         <button class="navbar-toggler" type="button" name="toggle-menu" data-bs-toggle="collapse" data-bs-target="#mobileNav">
@@ -38,16 +47,17 @@ if (isset($_SESSION['username'])) {
                 <li class="nav-item">
                     <a class="nav-link text-white <?php echo $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white <?php echo $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
-                </li>
+
                 <?php
                     if ($_SESSION['group-id'] == 1) {
                 ?>
-                <li class="nav-item">
-                    <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
-                </li>
-                <?php 
+                    <li class="nav-item">
+                        <a class="nav-link text-white <?php echo $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
+                    </li>
+                <?php
                     }
                 ?>
             </ul>

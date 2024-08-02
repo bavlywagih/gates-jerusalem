@@ -24,6 +24,9 @@ if (isset($_SESSION['username'])) {
 ?>
 
         <style>
+        a{
+            color: #000;
+        }
             @media print {
                 .no-print {
                     display: none;

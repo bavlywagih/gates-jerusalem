@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="wrapper">
     <div class="logo">
         <!-- <i class="fa-solid fa-user"></i> -->
-        <img src="http://localhost/gates-jerusalem/media/img/icon-user.png" class="icon-user" alt="">
+        <img src="media/img/icon-user.png" class="icon-user" alt="">
     </div>
     <div class="text-center mt-4 name">
         <br>
