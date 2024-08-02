@@ -4,6 +4,7 @@
     }
 
     .font-footer {
+        color: #fff;
         font-family: 'Cairo', sans-serif;
     }
 </style>
@@ -41,13 +42,18 @@
 
 
 
-<script type="text/javascript" src="http://localhost/gates-jerusalem/includes/js/tinymce/tinymce.min.js"></script>
-<script type="text/javascript" src="http://localhost/gates-jerusalem/includes/js/jquery.js"></script>
-<script type="text/javascript" src="http://localhost/gates-jerusalem/includes/js/all.min.js"></script>
-<script src="http://localhost/gates-jerusalem/includes/js/popper.min.js"></script>
-<script src="http://localhost/gates-jerusalem/includes/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://localhost/gates-jerusalem/includes/js/main.js"></script>
+<script type="text/javascript" src="includes/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="includes/js/jquery.js"></script>
+<script type="text/javascript" src="includes/js/all.min.js"></script>
+<script src="includes/js/popper.min.js"></script>
+<script src="includes/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="includes/js/main.js"></script>
+<?php
+$query = "SELECT * FROM pages ";
 
+$stmt = $pdo->query($query);
+$row_count = $stmt->rowCount();
+?>
 <script>
     tinymce.init({
         selector: 'textarea#post-editor',
@@ -61,23 +67,69 @@
         ],
         toolbar: 'undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help searchreplace | ltr rtl | addButton',
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+
+        <?php if ($row_count != 0) : ?>
+            setup: function(editor) {
+                editor.on('ExecCommand', function(e) {
+                    if (e.command === 'mceLink') {
+                        setTimeout(function() {
+                            var urlInput = document.querySelector('.tox-textfield[id^="form-field_"]');
+                            if (urlInput) {
+                                var select = document.createElement('select');
+                                select.style.marginTop = '10px';
+                                select.style.width = '100%';
+
+                                var options = [{
+                                        text: 'اختر رابط...',
+                                        value: ''
+                                    },
+                                    <?php
+
+                                    function encrypt_id($unique_id, $encryption_key)
+                                    {
+                                        $cipher_method = 'AES-128-CTR';
+                                        $iv_length = openssl_cipher_iv_length($cipher_method);
+                                        $options = 0;
+                                        $encryption_iv = random_bytes($iv_length);
+
+                                        $encrypted_id = openssl_encrypt((string)$unique_id, $cipher_method, $encryption_key, $options, $encryption_iv);
+                                        $encrypted_id_with_iv = base64_encode($encryption_iv . $encrypted_id);
+                                        return $encrypted_id_with_iv;
+                                    }
+
+                                    $encryption_key = '172008bavly12345'; 
+                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                        $unique_id = $row["id"];
+                                        $encrypted_id = encrypt_id($unique_id, $encryption_key);
+
+                                        echo "{ text: '" . addslashes($row["verse_reference"]) . "', value: 'page.php?id=" . urlencode($encrypted_id) . "' },";
+                                    }
+                                    ?>
+                                ];
+
+                                options.forEach(function(option) {
+                                    var opt = document.createElement('option');
+                                    opt.value = option.value;
+                                    opt.text = option.text;
+                                    select.appendChild(opt);
+                                });
+
+                                select.onchange = function() {
+                                    urlInput.value = select.value;
+                                };
+
+                                urlInput.style.display = 'none';
+
+                                urlInput.parentNode.appendChild(select);
+                            }
+                        }, 1);
+                    }
+                });
+            }
+        <?php endif; ?>
     });
 </script>
 
-
-
-
-<script defer>
-    // البحث عن العناصر التي تحتوي على data-mce-name="add"
-    var elements = document.querySelectorAll('[data-mce-name="add"]');
-
-    // التحقق مما إذا كان هناك عناصر بهذا التحديد
-    if (elements.length > 0) {
-        console.log('hahahaha');
-    } else {
-        console.log('a7a');
-    }
-</script>
 
 </body>
 

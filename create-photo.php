@@ -16,17 +16,15 @@
             const canvas = document.getElementById('canvas');
             const context = canvas.getContext('2d');
 
-            // تحميل صورة الخلفية
             const backgroundImage = new Image();
             backgroundImage.src = "1rm120batch2-techi-14-framebg.jpg";
             backgroundImage.onload = () => {
-                // رسم صورة الخلفية
+
                 canvas.width = backgroundImage.width;
                 canvas.height = backgroundImage.height;
 
-                // رسم صورة الخلفية
                 context.drawImage(backgroundImage, 0, 0);
-                // إعداد النص
+
                 const text = '"فَمَدَّ الْمَلِكُ لأَسْتِيرَ قَضِيبَ الذَّهَبِ، فَقَامَتْ أَسْتِيرُ وَوَقَفَتْ أَمَامَ الْمَلِكِ" (أس 8: 4).';
                 context.font = '50px Arial';
                 context.fillStyle = 'black';
@@ -34,11 +32,9 @@
 
                 const lines = wrapText(context, text, canvas.width - 100);
 
-                // حساب موضع بداية الرسم الرأسي بحيث يكون النص في منتصف الصورة
                 const lineHeight = 70;
                 const startY = canvas.height / 2 - (lines.length / 2) * lineHeight;
 
-                // رسم النص على الصورة
                 lines.forEach((line, i) => {
                     context.fillText(line, canvas.width / 2, startY + i * lineHeight);
                 });
