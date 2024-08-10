@@ -1,9 +1,4 @@
 <?php
-if ($_SERVER['REQUEST_URI'] == "/404.php") {
-    header("HTTP/1.0 404 Not Found");
-    include("404.php");
-    exit;
-}
 
 $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $currentPageURL = rtrim($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '/');
@@ -23,7 +18,7 @@ $currentPageURL = rtrim($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_UR
     <link rel="stylesheet" href="includes/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="includes/css/vendor/normalize.css">
     <link rel="stylesheet" href="includes/css/index.css">
-    <link rel="icon" type="image/x-icon" href="/media/img/logo.png" sizes="20x20">
+    <link rel="icon" type="image/x-icon" href="media/img/logo.png" sizes="20x20">
 
 </head>
 

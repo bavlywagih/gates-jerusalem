@@ -25,9 +25,9 @@ if (isset($_SESSION['username'])) {
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $encrypted_id_with_iv = $_GET["id"];
-        $encryption_key = '172008bavly12345'; 
+        $encryption_key = '172008bavly12345';
         $decrypted_id = decrypt_id($encrypted_id_with_iv, $encryption_key);
-        // echo "Decrypted ID: " . $decrypted_id;
+        echo "Decrypted ID: " . $decrypted_id;
 
         $stmt = $con->prepare("SELECT * FROM pages WHERE id = ? ");
         $stmt->execute(array($decrypted_id));
@@ -35,6 +35,7 @@ if (isset($_SESSION['username'])) {
         $count = $stmt->rowCount();
 
         if ($count > 0) {
+            $page_title = $row['page_title'];
             $verse_reference = $row['verse_reference'];
             $verse = $row['verse'];
         }
@@ -43,16 +44,22 @@ if (isset($_SESSION['username'])) {
 
 
 ?>
-    <button onclick="toggleTashkeel()">تبديل التشكيل</button>
+    <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 60px auto; min-height: 415px;">
+        <p class="text-center">عرض نص الشاهد التالي من الكتاب المقدس:</p>
+        <h2 class="text-center text-light-emphasis"><?php echo $page_title ?></h2>
 
-    <div id="textContainer">
-        <h1 id="textOutput">
-            <?php echo $verse . $verse_reference;?>
-        </h1>
+        <button onclick="toggleTashkeel()">تبديل التشكيل</button>
+        <div class="content">
+            <div id="textContainer">
+                <h3 id="textOutput" style="text-align: center;font-family: 'Cairo', sans-serif;">
+                    <?php echo $verse . $verse_reference; ?>
+                </h3>
+                <div></div>
+            </div>
+        </div>
     </div>
 
     <script>
-
         var h1 = document.getElementById('textOutput');
         var originalText = h1.textContent;
 

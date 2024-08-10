@@ -1,12 +1,12 @@
 <?php
-            $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-            // تحليل عنوان URL
-            $urlParts = parse_url($currentUrl);
+// تحليل عنوان URL
+$urlParts = parse_url($currentUrl);
 
-            // استخراج مسار URL وإزالة اسم الصفحة
-            $path = $urlParts['path'];
-            $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
+// استخراج مسار URL وإزالة اسم الصفحة
+$path = $urlParts['path'];
+$baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
 
 
 $activeHome = $currentPageURL  === $baseUrl  . "/index.php";
@@ -47,18 +47,19 @@ if (isset($_SESSION['username'])) {
                 <li class="nav-item">
                     <a class="nav-link text-white <?php echo $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
                 </li>
-
-                <?php
-                    if ($_SESSION['group-id'] == 1) {
-                ?>
+                <?php if (isset($_SESSION['username'])) {?>
                     <li class="nav-item">
                         <a class="nav-link text-white <?php echo $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
                     </li>
+                <?php }?>
+                <?php
+                if ($_SESSION['group-id'] == 1) {
+                ?>
                     <li class="nav-item">
                         <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
                     </li>
                 <?php
-                    }
+                }
                 ?>
             </ul>
             <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
