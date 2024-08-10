@@ -28,7 +28,7 @@ if (isset($_SESSION['username'])) {
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT);
             $stmt->execute();
-            header('location: gates-jerusalem.php');
+            header('location: details.php?gates-jerusalem-Id=' . $_GET['gates-jerusalem-Id-edit']);
             exit();
         }
 

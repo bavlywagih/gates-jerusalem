@@ -24,9 +24,11 @@ if (isset($_SESSION['username'])) {
 ?>
 
         <style>
-        a{
-            color: #000;
-        }
+            a {
+                color: blue;
+                text-decoration: underline;
+            }
+
             @media print {
                 .no-print {
                     display: none;
@@ -57,7 +59,7 @@ if (isset($_SESSION['username'])) {
                 </ul>
             </div>
             <div class="content">
-                <h3 class="text-black"><b><?php echo  $row['name']; ?></b></h3>
+                <h3 class="text-black text-center"><b><?php echo  $row['name']; ?></b></h3>
                 <h2 class="card-title"><?php echo $row['text']; ?></h2>
                 <a class="mt-3 text-primary d-block text-start" href="gates-jerusalem.php">إلي صفحة السابقة...</a>
                 <br>
@@ -77,7 +79,7 @@ if (isset($_SESSION['username'])) {
             </div>
         </div>
 
-        
+
 
         <script>
             function updateURL(increment) {
@@ -135,18 +137,18 @@ if (isset($_SESSION['username'])) {
                 window.print();
             }
         </script>
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.title = "<?php echo  $row['name']; ?>"; // تغيير عنوان الصفحة
+            });
+        </script>
 <?php
     }
+} else {
+    header('location: login.php');
+    exit();
 }
-
-
-
-
 require_once './includes/layout/footer.php';
-
-
-
 ?>
 
 
