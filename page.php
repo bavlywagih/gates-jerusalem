@@ -8,47 +8,33 @@ if (isset($_SESSION['username'])) {
     require_once 'connect.php';
     require_once 'functions.php';
 
-    function decrypt_id($encrypted_id_with_iv, $encryption_key)
-    {
-        $cipher_method = 'AES-128-CTR';
-        $iv_length = openssl_cipher_iv_length($cipher_method);
-        $options = 0;
 
-        $encrypted_data = base64_decode($encrypted_id_with_iv);
+    $stmt = $con->prepare("SELECT * FROM pages WHERE id = ? ");
+    $stmt->execute(array($_GET['id']));
+    $row = $stmt->fetch();
+    $count = $stmt->rowCount();
 
-        $encryption_iv = substr($encrypted_data, 0, $iv_length);
-        $encrypted_id = substr($encrypted_data, $iv_length);
-
-        $decrypted_id = openssl_decrypt($encrypted_id, $cipher_method, $encryption_key, $options, $encryption_iv);
-        return $decrypted_id;
+    if ($count > 0) {
+        $page_title = $row['page_title'];
+        $verse_reference = $row['verse_reference'];
+        $verse = $row['verse'];
+        $id_select = $row['id_select'];
     }
-
-    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-        $encrypted_id_with_iv = $_GET["id"];
-        $encryption_key = '172008bavly12345';
-        $decrypted_id = decrypt_id($encrypted_id_with_iv, $encryption_key);
-        echo "Decrypted ID: " . $decrypted_id;
-
-        $stmt = $con->prepare("SELECT * FROM pages WHERE id = ? ");
-        $stmt->execute(array($decrypted_id));
-        $row = $stmt->fetch();
-        $count = $stmt->rowCount();
-
-        if ($count > 0) {
-            $page_title = $row['page_title'];
-            $verse_reference = $row['verse_reference'];
-            $verse = $row['verse'];
-        }
-        // echo $verse_reference . $verse;
-    }
-
 
 ?>
     <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 60px auto; min-height: 415px;">
         <p class="text-center">عرض نص الشاهد التالي من الكتاب المقدس:</p>
-        <h2 class="text-center text-light-emphasis"><?php echo $page_title ?></h2>
 
-        <button onclick="toggleTashkeel()">تبديل التشكيل</button>
+
+        <h2 class="text-center text-light-emphasis"><?php echo $page_title ?></h2>
+        <?php
+        if ($id_select == 0) {
+        ?>
+            <button onclick="toggleTashkeel()" class="btn btn-success" >تبديل التشكيل</button>
+            <a href="create-photo.php?id=<?php echo $_GET['id']?>" class="btn btn-success" >تبديل </a>
+        <?php
+        }
+        ?>
         <div class="content">
             <div id="textContainer">
                 <h3 id="textOutput" style="text-align: center;font-family: 'Cairo', sans-serif;">

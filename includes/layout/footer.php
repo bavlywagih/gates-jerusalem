@@ -85,24 +85,11 @@ $row_count = $stmt->rowCount();
                                     },
                                     <?php
 
-                                    function encrypt_id($unique_id, $encryption_key)
-                                    {
-                                        $cipher_method = 'AES-128-CTR';
-                                        $iv_length = openssl_cipher_iv_length($cipher_method);
-                                        $options = 0;
-                                        $encryption_iv = random_bytes($iv_length);
 
-                                        $encrypted_id = openssl_encrypt((string)$unique_id, $cipher_method, $encryption_key, $options, $encryption_iv);
-                                        $encrypted_id_with_iv = base64_encode($encryption_iv . $encrypted_id);
-                                        return $encrypted_id_with_iv;
-                                    }
-
-                                    $encryption_key = '172008bavly12345'; 
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                         $unique_id = $row["id"];
-                                        $encrypted_id = encrypt_id($unique_id, $encryption_key);
 
-                                        echo "{ text: '" . addslashes($row["verse_reference"]) . "', value: 'page.php?id=" . urlencode($encrypted_id) . "' },";
+                                        echo "{ text: '" . addslashes($row["page_title"]) . "', value: 'page.php?id=" . urlencode($unique_id) . "' },";
                                     }
                                     ?>
                                 ];
