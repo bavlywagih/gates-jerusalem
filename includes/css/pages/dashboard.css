@@ -144,10 +144,16 @@
     background-color: #4070F4;
 }
 
+@media  (max-width: 768px) {
+    .container-page {
+            flex-direction: column !important;
+        }
+}
 @media screen and (max-width: 768px) {
     .slide-content {
         margin: 0 10px;
     }
+
 
     .swiper-navBtn {
         display: none;

@@ -1,10 +1,6 @@
 <?php
 $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-// تحليل عنوان URL
 $urlParts = parse_url($currentUrl);
-
-// استخراج مسار URL وإزالة اسم الصفحة
 $path = $urlParts['path'];
 $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
 
@@ -12,7 +8,17 @@ $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
 $activeHome = $currentPageURL  === $baseUrl  . "/index.php";
 $activeContent = $currentPageURL === $baseUrl  . "/gates-jerusalem.php";
 $activeSearchPage = $currentPageURL === $baseUrl  . "/search.php";
-$activeaddPage = $currentPageURL === $baseUrl  . "/add-pages.php";
+if (isset($_GET["add"])){
+    $url_addPage = "";
+    if ($_GET["add"] == "verse") {
+        $url_addPage = "verse";
+    }
+    if ($_GET["add"] == "page") {
+        $url_addPage = "page";
+    }
+    $activeaddPage = $currentPageURL === $baseUrl  . "/add-pages.php?add=" . $url_addPage;
+}
+
 $activelogin = $currentPageURL === $baseUrl  . "/login.php";
 $activesignup = $currentPageURL === $baseUrl  . "/signup.php";
 
