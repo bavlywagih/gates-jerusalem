@@ -139,7 +139,7 @@ if (isset($_SESSION['username'])) {
         </script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                document.title = "<?php echo  $row['name']; ?>"; // تغيير عنوان الصفحة
+                document.title = "<?php echo  $row['name']; ?>"; 
             });
         </script>
 <?php

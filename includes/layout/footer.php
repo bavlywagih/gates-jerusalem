@@ -16,12 +16,13 @@
             <div class="col-sm-6 col-md-3 links">
                 <ul>
                     <li><a href="index.php" class="font-footer <?php echo $activeHome ? 'nav-active-link' : '' ?>">الصفحة الرئيسية</a></li>
-                    <li><a href="gates-jerusalem.php" class="font-footer <?php echo $activeContent ? 'nav-active-link' : '' ?>">ابواب اورشليم</a></li>
-                    <li><a href="search.php" class="font-footer <?php echo $activeSearchPage ? 'nav-active-link' : '' ?>">ابحث عن الاباء البطاركة</a></li>
                     <?php if (!isset($_SESSION['username'])) { ?>
                         <li><a class="nav-link text-white <?php echo $activelogin ? 'nav-active-link' : '' ?> font-footer" href="login.php">تسجيل الدخول</a></li>
-                        <li><a href="#" class="<?php echo $activesignup ? 'nav-active-link' : '' ?> font-footer" href="signup.php">انشاء حساب</a></li>
+                        <li><a href="signup.php" class="<?php echo $activesignup ? 'nav-active-link' : '' ?> font-footer" href="signup.php">انشاء حساب</a></li>
                     <?php } else { ?>
+                        <li><a href="gates-jerusalem.php" class="font-footer <?php echo $activeContent ? 'nav-active-link' : '' ?>">ابواب اورشليم</a></li>
+                        <li><a href="search.php" class="font-footer <?php echo $activeSearchPage ? 'nav-active-link' : '' ?>">ابحث عن الاباء البطاركة</a></li>
+                        <li><a href="search.php" class="font-footer <?php echo $activeaddPage ? 'nav-active-link' : '' ?>">انشاء صفحات</a></li>
                         <li><a href="logout.php" class="font-footer">تسجيل خروج</a></li>
                     <?php } ?>
 
@@ -48,6 +49,24 @@
 <script src="includes/js/popper.min.js"></script>
 <script src="includes/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="includes/js/main.js"></script>
+
+<script>
+    document.addEventListener('copy', function(event) {
+        let selectedText = window.getSelection().toString();
+        selectedText += '\nاقرأ المزيد عن طريق ذلك الرابط: <?php echo $currentPageURL; ?> ';
+        event.preventDefault();
+        if (event.clipboardData) {
+            event.clipboardData.setData('text/plain', selectedText);
+        } else if (window.clipboardData) {
+            window.clipboardData.setData('Text', selectedText);
+        }
+        console.log('Async: Copying to clipboard was successful!');
+    });
+
+    window.onload = () => {
+        console.log('Loaded');
+    };
+</script>
 <?php
 $query = "SELECT * FROM pages ";
 

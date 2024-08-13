@@ -54,23 +54,6 @@ if (isset($_SESSION['username'])) {
             </div>
         </div>
 
-        <script>
-            document.addEventListener('copy', function(event) {
-                let selectedText = window.getSelection().toString();
-                selectedText += '\nاقرأ المزيد عن هذا البطرك من ذلك الرابط: <?php echo $currentPageURL; ?> ';
-                event.preventDefault();
-                if (event.clipboardData) {
-                    event.clipboardData.setData('text/plain', selectedText);
-                } else if (window.clipboardData) {
-                    window.clipboardData.setData('Text', selectedText);
-                }
-                console.log('Async: Copying to clipboard was successful!');
-            });
-
-            window.onload = () => {
-                console.log('Loaded');
-            };
-        </script>
 
         <script>
             function updateURL(increment) {
