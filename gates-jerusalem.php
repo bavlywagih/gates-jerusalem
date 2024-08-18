@@ -73,11 +73,11 @@ if (isset($_SESSION['username'])) {
                             <div class="form-group">
                                 <div class="d-flex flex-column">
                                     <label for="file-picker" class="form-label">اسم الباب : </label>
-                                    <input type="text" require class="form-control" name="name" placeholder="اكتب اسم الباب هنا">
+                                    <input type="text" required class="form-control" name="name" placeholder="اكتب اسم الباب هنا">
                                 </div>
                                 <div class="my-2">
                                     <label for="file-picker" class="form-label"> شرح : </label>
-                                    <textarea class="form-control " require name="text" id="post-editor" rows="5"></textarea>
+                                    <textarea class="form-control " name="text" id="post-editor" rows="5"></textarea>
                                 </div>
                                 <div class="my-2">
                                     <label for="file-picker" class="form-label"> اختيار ال ID : </label>
@@ -142,8 +142,10 @@ if (isset($_SESSION['username'])) {
             }
 
             .map-container .gate:nth-child(1) {
-                top: 6%;
-                left: 38%;
+                top: 86.5%;
+                left: 30%;
+                /* top: 6%;
+                left: 38%; */
             }
 
             .map-container .gate:nth-child(2) {
@@ -152,8 +154,8 @@ if (isset($_SESSION['username'])) {
             }
 
             .map-container .gate:nth-child(3) {
-                top: 14.5%;
-                left: 75%;
+                top: 13%;
+                left: 11%;
             }
 
             .map-container .gate:nth-child(4) {
@@ -187,8 +189,9 @@ if (isset($_SESSION['username'])) {
             }
 
             .map-container .gate:nth-child(10) {
-                top: 13%;
-                left: 11%;
+
+                top: 14.5%;
+                left: 75%;
             }
 
             .map-container .gate:nth-child(11) {
@@ -197,8 +200,8 @@ if (isset($_SESSION['username'])) {
             }
 
             .map-container .gate:nth-child(12) {
-                top: 86.5%;
-                left: 30%;
+                top: 6%;
+                left: 38%;
             }
 
             .gate-pdf {

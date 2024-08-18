@@ -8,7 +8,7 @@ $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
 $activeHome = $currentPageURL  === $baseUrl  . "/index.php";
 $activeContent = $currentPageURL === $baseUrl  . "/gates-jerusalem.php";
 $activeSearchPage = $currentPageURL === $baseUrl  . "/search.php";
-if (isset($_GET["add"])){
+if (isset($_GET["add"])) {
     $url_addPage = "";
     if ($_GET["add"] == "verse") {
         $url_addPage = "verse";
@@ -53,11 +53,11 @@ if (isset($_SESSION['username'])) {
                 <li class="nav-item">
                     <a class="nav-link text-white <?php echo $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
                 </li>
-                <?php if (isset($_SESSION['username'])) {?>
+                <?php if (isset($_SESSION['username'])) { ?>
                     <li class="nav-item">
                         <a class="nav-link text-white <?php echo $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
                     </li>
-                <?php }?>
+                <?php } ?>
                 <?php
                 if ($_SESSION['group-id'] == 1) {
                 ?>
@@ -103,3 +103,4 @@ if (isset($_SESSION['username'])) {
         </div>
     </div>
 </nav>
+<div class="scroller"></div>

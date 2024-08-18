@@ -62,27 +62,25 @@ if (isset($_SESSION['username'])) {
 
     <?php } else { ?>
         <style>
-            
-            a {    
+            a {
                 color: blue;
                 text-decoration: underline;
             }
 
             .container-page {
-                display: flex;
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 20px;
-                flex-direction: row-reverse;
+                width: 100%;
+                overflow: hidden;
             }
 
             .image-section {
-                flex: 1;
-                padding-right: 20px;
+                float: left;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .image-section img {
-                width: 100%;
+                width: 80%;
                 height: auto;
                 border-radius: 10px;
             }
@@ -114,41 +112,43 @@ if (isset($_SESSION['username'])) {
                     -webkit-print-color-adjust: exact !important;
                 }
 
-                img {
-                    width: 20% !important;
+                a {
+                    color: blue;
+                    text-decoration: underline;
                 }
 
                 .container-page {
-                    display: flex !important;
-                    max-width: 1200px !important;
-                    margin: 0 auto !important;
-                    padding: 20px !important;
-                    flex-direction: row-reverse !important;
+                    width: 100%;
+                    overflow: hidden;
                 }
 
                 .image-section {
-                    flex: 1 !important;
-                    padding-right: 20px !important;
+                    float: left;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                 }
 
                 .image-section img {
-                    width: 100% !important;
-                    height: auto !important;
-                    border-radius: 10px !important;
+                    width: 50%;
+                    height: auto;
+                    border-radius: 10px;
                 }
 
                 .text-section {
-                    flex: 2 !important;
-                    text-align: right !important;
-                    font-size: 1.2em !important;
-                    line-height: 1.6 !important;
-                    color: #333 !important;
+                    flex: 2;
+                    text-align: right;
+                    font-size: 1.2em;
+                    line-height: 1.6;
+                    color: #333;
                 }
 
                 .text-section p {
-                    margin: 0 !important;
-                    padding: 0 !important;
+                    margin: 0;
+                    padding: 0;
                 }
+
+
             }
         </style>
 

@@ -9,7 +9,7 @@ if (!isset($_GET["add"])) {
 $add = $_GET["add"];
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-if ($add != "verse" && $add != "page") {
+if (!in_array($add, ["verse", "page", "manyverse"])) {
     header('Location: add-pages.php?add=verse');
     exit();
 }
@@ -25,7 +25,7 @@ if (isset($_SESSION['username'])) {
             'page_title' => '',
             'verse_reference' => '',
             'verse' => '',
-            'id_select' => $add == 'verse' ? '0' : '1'
+            'id_select' => $add == 'verse' ? '0' : ($add == 'page' ? '1' : '2')
         ];
 
         $pageImages = [];
@@ -204,10 +204,15 @@ if (isset($_SESSION['username'])) {
                                     <label for="image-upload" class="form-label" id="label-image-upload"> تحميل صور للصفحة: </label>
                                     <input type="file" class="form-control" name="page_images[]" id="image-upload" multiple>
                                 </div>
-                            <?php } else { ?>
+                            <?php } elseif ($pageData['id_select'] == '0') { ?>
                                 <div class="my-2">
                                     <label for="file-picker" class="form-label" id="label-verse"> الآية: </label>
                                     <textarea class="form-control" name="verse" id="text-area" rows="5" style="height: 400px;" placeholder="اكتب الآية هنا"><?= htmlspecialchars($pageData['verse']) ?></textarea>
+                                </div>
+                            <?php } elseif ($pageData['id_select'] == '2') { ?>
+                                <div class="my-2">
+                                    <label for="file-picker" class="form-label" id="label-verse"> آيات متعددة: </label>
+                                    <textarea class="form-control" name="verse" id="post-editor" rows="10" style="height: 500px;" placeholder="اكتب الآيات هنا"><?= htmlspecialchars($pageData['verse']) ?></textarea>
                                 </div>
                             <?php } ?>
 
@@ -216,6 +221,7 @@ if (isset($_SESSION['username'])) {
                                 <select class="form-select" name="id_select" id="id-select" onchange="navigate()">
                                     <option value="0" <?= $pageData['id_select'] == '0' ? 'selected' : '' ?>>آية</option>
                                     <option value="1" <?= $pageData['id_select'] == '1' ? 'selected' : '' ?>>صفحة</option>
+                                    <option value="2" <?= $pageData['id_select'] == '2' ? 'selected' : '' ?>>آيات متعددة</option>
                                 </select>
                             </div>
                         </div>
@@ -234,8 +240,10 @@ if (isset($_SESSION['username'])) {
                     addParam = 'verse';
                 } else if (selectedValue === '1') {
                     addParam = 'page';
+                } else if (selectedValue === '2') {
+                    addParam = 'manyverse';
                 }
-                window.location.href = `add-pages.php?add=${addParam}&id=<?= $id ?>`;
+                window.location.href = `add-pages.php?add=${addParam}`;
             }
 
             document.querySelectorAll('.remove-image-btn').forEach(button => {
