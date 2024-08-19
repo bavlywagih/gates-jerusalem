@@ -2,8 +2,6 @@
 session_start();
 
 if (isset($_SESSION['username'])) {
-    // require_once "./includes/layout/header.php";
-    // require_once "./includes/layout/nav.php";
     require_once 'connect.php';
     require_once 'functions.php';
     $stmt = $con->prepare("SELECT * FROM pages WHERE id = ?");
@@ -54,12 +52,8 @@ if (isset($_SESSION['username'])) {
 
 
             <script>
-                // تحقق مما إذا تم إعادة تحميل الصفحة من قبل
                 if (!sessionStorage.getItem('reloaded')) {
-                    // إذا لم يتم إعادة التحميل، قم بتخزين قيمة في sessionStorage
                     sessionStorage.setItem('reloaded', 'true');
-
-                    // إعادة تحميل الصفحة
                     location.reload();
                 }
 
@@ -144,7 +138,6 @@ if (isset($_SESSION['username'])) {
         </div>
 
 <?php
-        // require_once './includes/layout/footer.php';
     } else {
         header('location: page.php?id=' . $_GET['id']);
         exit();

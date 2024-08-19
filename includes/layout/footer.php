@@ -49,9 +49,6 @@
     </footer>
 
     <?php
-    // تضمين ملف الاتصال بقاعدة البيانات
-
-    // استعلام لإحضار البيانات من الجدولين
     $query = "
         SELECT id, page_title AS title, 'page' AS type 
         FROM pages 
@@ -86,7 +83,6 @@
             updateScroller();
         });
 
-        // تأكد من تحديث الشريط عند تحميل الصفحة لأول مرة
         updateScroller();
 
         document.addEventListener('copy', function(event) {

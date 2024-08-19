@@ -68,12 +68,16 @@ if (isset($_SESSION['username'])) {
                 }
                 ?>
             </ul>
+            <?php
+                if (isset($_SESSION['username'])) {
+            ?>
             <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
                 <label for="search-input" class="visually-hidden"></label>
                 <input id="search-input" class="form-control me-2" value="<?php echo $_GET["search"] ?? '' ?>" type="search" placeholder="بحث عن آباء بطاركة..." name="search">
                 <button class="search-btn" type="submit">بحث</button>
             </form>
             <?php
+                }
             if (isset($_SESSION['username'])) { ?>
                 <div class="d-flex me-auto ms-0 button-nav-name" style="font-weight: 300; flex-basis: 13%;  flex-direction: row-reverse;">
                     <div class="dropdown">

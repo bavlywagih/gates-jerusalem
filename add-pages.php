@@ -39,8 +39,6 @@ if (isset($_SESSION['username'])) {
                     echo "الصفحة أو الآية غير موجودة.";
                     exit();
                 }
-
-                // Fetch images related to the page
                 $stmt = $con->prepare("SELECT * FROM page_images WHERE page_id = ?");
                 $stmt->execute([$id]);
                 $pageImages = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -57,11 +55,8 @@ if (isset($_SESSION['username'])) {
 
             try {
                 if ($id) {
-                    // Update existing record
                     $stmt = $con->prepare("UPDATE pages SET page_title = ?, verse_reference = ?, verse = ?, id_select = ? WHERE id = ?");
                     $stmt->execute([$page_title, $verse_reference, $verse, $id_select, $id]);
-
-                    // Handle image removal
                     if (isset($_POST['removed_image_ids']) && $_POST['removed_image_ids'] !== '') {
                         $removedImageIds = explode(',', $_POST['removed_image_ids']);
                         foreach ($removedImageIds as $imageId) {
@@ -69,18 +64,15 @@ if (isset($_SESSION['username'])) {
                             $stmt->execute([$imageId]);
                             $image = $stmt->fetch(PDO::FETCH_ASSOC);
                             if ($image) {
-                                // Remove image file
                                 if (file_exists($image['image_path'])) {
                                     unlink($image['image_path']);
                                 }
-                                // Remove image record from database
                                 $stmt = $con->prepare("DELETE FROM page_images WHERE id = ?");
                                 $stmt->execute([$imageId]);
                             }
                         }
                     }
 
-                    // Handle new image uploads
                     if ($id_select == '1' && isset($_FILES['page_images'])) {
                         $images = $_FILES['page_images'];
                         $uploadDir = 'media/uploads/';
@@ -112,16 +104,13 @@ if (isset($_SESSION['username'])) {
                         }
                     }
 
-                    // Redirect to the page after updating
                     header('Location: page.php?id=' . $id);
                     exit();
                 } else {
-                    // Insert new record
                     $stmt = $con->prepare("INSERT INTO pages (page_title, verse_reference, verse, id_select) VALUES (?, ?, ?, ?)");
                     $stmt->execute([$page_title, $verse_reference, $verse, $id_select]);
                     $id = $con->lastInsertId();
 
-                    // Handle new image uploads
                     if ($id_select == '1' && isset($_FILES['page_images'])) {
                         $images = $_FILES['page_images'];
                         $uploadDir = 'media/uploads/';
@@ -153,7 +142,6 @@ if (isset($_SESSION['username'])) {
                         }
                     }
 
-                    // Redirect to the page after inserting a new record
                     header('Location: page.php?id=' . $id);
                     exit();
                 }
@@ -252,13 +240,11 @@ if (isset($_SESSION['username'])) {
                     const removedImagesInput = document.getElementById('removed_image_ids');
                     let removedImageIds = removedImagesInput.value ? removedImagesInput.value.split(',') : [];
 
-                    // Add the removed image ID to the list
                     if (!removedImageIds.includes(imageId)) {
                         removedImageIds.push(imageId);
                     }
                     removedImagesInput.value = removedImageIds.join(',');
 
-                    // Remove the image element from the page
                     this.parentElement.remove();
                 });
             });
