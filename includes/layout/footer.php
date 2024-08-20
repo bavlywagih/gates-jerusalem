@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
         .nav-active-link {
             color: var(--main-color) !important;
@@ -15,9 +9,7 @@
             font-family: 'Cairo', sans-serif;
         }
     </style>
-</head>
 
-<body>
 
     <span class="up"><i class="fa-solid fa-chevron-up"></i></span>
 
@@ -160,7 +152,24 @@
             <?php endif; ?>
         });
     </script>
+    <?php
+    if (isset($_SESSION['fullname'])) {
+        $userId  = $_SESSION['id'];
+        $query = "SELECT * FROM users WHERE id = :id LIMIT 1";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+        $user = $stmt->fetch();
+        $userId = $user['id']; 
+        $fullname = $user['fullname'];
+        $name = $fullname;
+        $nameArray = explode(" ", $name);
+        $nameuser = $nameArray[0];
+    }
+    ?>
+    <script>
+        <?php if (isset($fullname)){ ?>
+            document.getElementById("navbarUsername").innerHTML = "<?php echo $nameuser; ?>";
+        <?php } ?>
+    </script>
 
-</body>
-
-</html>

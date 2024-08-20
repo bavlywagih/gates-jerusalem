@@ -33,7 +33,13 @@ if (isset($_SESSION['username'])) {
             <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
             <button onclick="toggleTashkeel()" class="btn btn-success">تبديل التشكيل</button>
             <a href="create-photo.php?id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">إنشاء صورة</a>
+            <?php
+                if ($_SESSION['group-id'] == 1) {
+            ?>
             <a href="add-pages.php?add=verse&id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
+            <?php
+                }
+            ?>
             <div class="content">
                 <div id="textContainer">
                     <h3 id="textOutput" style="text-align: center; font-family: 'Cairo', sans-serif;">
@@ -153,8 +159,13 @@ if (isset($_SESSION['username'])) {
         </style>
 
         <a class="text-end text-black no-print" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a><br>
+        <?php
+            if ($_SESSION['group-id'] == 1) {
+        ?>
         <a href="add-pages.php?add=page&id=<?php echo urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
-
+        <?php 
+            }
+        ?>
         <p class="text-center">عرض عنوان الصفحه:</p>
         <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
         <div class="container-page">

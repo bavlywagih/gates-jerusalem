@@ -142,8 +142,3 @@ if (isset($_SESSION['username'])) {
 require_once './includes/layout/footer.php';
 ?>
 
-
-<!-- <div class="image">
-                    <img  style="" alt="patriarch_" />
-                </div> -->
-<!--

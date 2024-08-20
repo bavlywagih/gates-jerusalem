@@ -28,12 +28,6 @@ if (isset($_GET["search"])) {
     $activeSearch = ' ';
 }
 
-if (isset($_SESSION['username'])) {
-    $name = $_SESSION['fullname'];
-    $nameArray = explode(" ", $name);
-    $nameuser = $nameArray[0];
-}
-
 ?>
 
 
@@ -69,23 +63,23 @@ if (isset($_SESSION['username'])) {
                 ?>
             </ul>
             <?php
-                if (isset($_SESSION['username'])) {
+            if (isset($_SESSION['username'])) {
             ?>
-            <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
-                <label for="search-input" class="visually-hidden"></label>
-                <input id="search-input" class="form-control me-2" value="<?php echo $_GET["search"] ?? '' ?>" type="search" placeholder="بحث عن آباء بطاركة..." name="search">
-                <button class="search-btn" type="submit">بحث</button>
-            </form>
+                <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
+                    <label for="search-input" class="visually-hidden"></label>
+                    <input id="search-input" class="form-control me-2" value="<?php echo $_GET["search"] ?? '' ?>" type="search" placeholder="بحث عن آباء بطاركة..." name="search">
+                    <button class="search-btn" type="submit">بحث</button>
+                </form>
             <?php
-                }
+            }
             if (isset($_SESSION['username'])) { ?>
                 <div class="d-flex me-auto ms-0 button-nav-name" style="font-weight: 300; flex-basis: 13%;  flex-direction: row-reverse;">
                     <div class="dropdown">
-                        <button class="  btn btn-secondary dropdown-toggle bg-transparent border border-0 border-bottom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $nameuser; ?>
+                        <button class="  btn btn-secondary dropdown-toggle bg-transparent border border-0 border-bottom d-flex  align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div id="navbarUsername" class="navbar-text text-white"> <?php echo htmlspecialchars($nameuser); ?></div>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-mobile" style="right: -120px;">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="profile.php">الصفحة الشخصيه</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="logout.php">تسجيل خروج</a></li>
                         </ul>
@@ -107,4 +101,32 @@ if (isset($_SESSION['username'])) {
         </div>
     </div>
 </nav>
+<script>
+    document.getElementById('saveProfileBtn').addEventListener('click', () => {
+        const form = document.getElementById('profileForm');
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response Data:', data); 
+                if (data.status === 'success') {
+                    const nameArray = data.fullname.split(" ");
+                    const nameuser = nameArray[0];
+                    document.getElementById('navbarUsername').textContent = nameuser;
+                    alert('تم تحديث البيانات بنجاح');
+                } else {
+
+                    alert('حدث خطأ أثناء تحديث البيانات: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء تحديث البيانات');
+            });
+    });
+</script>
 <div class="scroller"></div>

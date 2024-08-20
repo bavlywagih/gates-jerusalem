@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="wrapper">
     <div class="logo">
-        <!-- <i class="fa-solid fa-user"></i> -->
         <img src="media/img/icon-user.png" class="icon-user" alt="">
     </div>
     <div class="text-center mt-4 name">
@@ -54,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="username" class="form-label">اسم المستخدم :</label>
                 <input type="text" name="username" id="username" placeholder="اسم المستخدم " class="form-control w-100" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
             </div>
-            <!-- <input type="text" name="username" id="username" placeholder="username"> -->
         </div>
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
