@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 if (isset($_SESSION['username'])) {
     if (empty($_GET['gates-jerusalem-Id-edit'])) {
@@ -6,15 +7,12 @@ if (isset($_SESSION['username'])) {
         exit();
     }
     require_once "./includes/layout/header.php";
-    require_once "./includes/layout/nav.php";
-    require_once 'connect.php';
     require_once 'functions.php';
 
     $gates_jerusalem_Id = $_GET['gates-jerusalem-Id-edit'];
     $query = "SELECT * FROM gates WHERE id = $gates_jerusalem_Id";
     $stmt = $pdo->query($query);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
     if (!isset($row['id'])) {
         header('location: gates-jerusalem.php');
         exit();
@@ -28,11 +26,13 @@ if (isset($_SESSION['username'])) {
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':id', $gates_jerusalem_Id, PDO::PARAM_INT);
             $stmt->execute();
-            header('location: details.php?gates-jerusalem-Id=' . $_GET['gates-jerusalem-Id-edit']);
+            header('location: details.php?gates-jerusalem-Id='. $_GET['gates-jerusalem-Id-edit']);
             exit();
         }
-
+    
+ob_end_flush();
 ?>
+
 
         <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 120px auto; min-height: 415px;">
             <div class="content">
@@ -49,7 +49,7 @@ if (isset($_SESSION['username'])) {
                             <textarea class="form-control " require name="text" id="post-editor" rows="5"><?php echo $row['text']; ?></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success" style="width: 100%;">ارسال</button>
+                    <button type="submit" class="btn btn-success w-100">ارسال</button>
                 </form>
             </div>
         </div>
@@ -111,6 +111,9 @@ if (isset($_SESSION['username'])) {
         </script>
 <?php
     }
+}else{
+    header('Location: login.php');
+    exit();
 }
 
 

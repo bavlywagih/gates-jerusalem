@@ -114,9 +114,34 @@ body {
 }
 .div-hide-password-login-form{
     display: block;
-
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-left: 1px solid #ced4da;
     border-right: 1px solid #ced4da;
     border-top: 1px solid #ced4da;
     border-bottom: 1px solid #ced4da;
+}
+.text-blue-hover:hover {
+    color: #0098dd !important;
+    text-decoration: underline;
+}
+.fa-eye,
+.fa-eye-slash{
+    cursor: pointer !important;
+}
+.disabledInput{
+    cursor: not-allowed;
+}
+.user-name-inform-input{
+    font-size: small;
+    color: red;
+}
+.eyeIcon-cursor{
+    cursor: pointer !important;
+}
+.input-background-signup{
+    background-color: #e9ecef;
+}
+.input-background-signup:focus{
+    background-color: #e9ecef;
 }

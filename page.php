@@ -1,10 +1,9 @@
 <?php
 session_start();
+ob_start();
 
 if (isset($_SESSION['username'])) {
     require_once "./includes/layout/header.php";
-    require_once "./includes/layout/nav.php";
-    require_once 'connect.php';
     require_once 'functions.php';
 
 
@@ -26,6 +25,8 @@ if (isset($_SESSION['username'])) {
     $stmt = $con->prepare("SELECT * FROM page_images WHERE page_id = ?");
     $stmt->execute([$_GET['id']]);
     $images = $stmt->fetchAll();
+    ob_end_flush();
+
 ?>
     <?php if ($id_select == 0) { ?>
         <div class="patriarch-details-container p-3 shadow-lg rounded border" style="width: 75%; margin: 60px auto; min-height: 415px;">
@@ -33,7 +34,13 @@ if (isset($_SESSION['username'])) {
             <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
             <button onclick="toggleTashkeel()" class="btn btn-success">تبديل التشكيل</button>
             <a href="create-photo.php?id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">إنشاء صورة</a>
-            <a href="add-pages.php?add=verse&id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
+            <?php
+            if ($_SESSION['group-id'] == 1) {
+            ?>
+                <a href="add-pages.php?add=verse&id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
+            <?php
+            }
+            ?>
             <div class="content">
                 <div id="textContainer">
                     <h3 id="textOutput" style="text-align: center; font-family: 'Cairo', sans-serif;">
@@ -62,27 +69,25 @@ if (isset($_SESSION['username'])) {
 
     <?php } else { ?>
         <style>
-            
-            a {    
+            a {
                 color: blue;
                 text-decoration: underline;
             }
 
             .container-page {
-                display: flex;
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 20px;
-                flex-direction: row-reverse;
+                width: 100%;
+                overflow: hidden;
             }
 
             .image-section {
-                flex: 1;
-                padding-right: 20px;
+                float: left;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .image-section img {
-                width: 100%;
+                width: 80%;
                 height: auto;
                 border-radius: 10px;
             }
@@ -114,47 +119,54 @@ if (isset($_SESSION['username'])) {
                     -webkit-print-color-adjust: exact !important;
                 }
 
-                img {
-                    width: 20% !important;
+                a {
+                    color: blue;
+                    text-decoration: underline;
                 }
 
                 .container-page {
-                    display: flex !important;
-                    max-width: 1200px !important;
-                    margin: 0 auto !important;
-                    padding: 20px !important;
-                    flex-direction: row-reverse !important;
+                    width: 100%;
+                    overflow: hidden;
                 }
 
                 .image-section {
-                    flex: 1 !important;
-                    padding-right: 20px !important;
+                    float: left;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                 }
 
                 .image-section img {
-                    width: 100% !important;
-                    height: auto !important;
-                    border-radius: 10px !important;
+                    width: 50%;
+                    height: auto;
+                    border-radius: 10px;
                 }
 
                 .text-section {
-                    flex: 2 !important;
-                    text-align: right !important;
-                    font-size: 1.2em !important;
-                    line-height: 1.6 !important;
-                    color: #333 !important;
+                    flex: 2;
+                    text-align: right;
+                    font-size: 1.2em;
+                    line-height: 1.6;
+                    color: #333;
                 }
 
                 .text-section p {
-                    margin: 0 !important;
-                    padding: 0 !important;
+                    margin: 0;
+                    padding: 0;
                 }
+
+
             }
         </style>
 
         <a class="text-end text-black no-print" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a><br>
-        <a href="add-pages.php?add=page&id=<?php echo urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
-
+        <?php
+        if ($_SESSION['group-id'] == 1) {
+        ?>
+            <a href="add-pages.php?add=page&id=<?php echo urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
+        <?php
+        }
+        ?>
         <p class="text-center">عرض عنوان الصفحه:</p>
         <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
         <div class="container-page">
@@ -173,7 +185,11 @@ if (isset($_SESSION['username'])) {
         </div>
     <?php } ?>
 
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.title = "<?php echo htmlspecialchars($page_title);?>";
+        });
+    </script>
 
 
 

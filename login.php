@@ -7,7 +7,6 @@ if (isset($_SESSION['username'])) {
 
 require_once('includes/layout/header.php');
 require_once('connect.php');
-require_once('includes/layout/nav.php');
 
 
 
@@ -34,40 +33,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 ?>
 
-<div class="wrapper">
-    <div class="logo">
-        <!-- <i class="fa-solid fa-user"></i> -->
-        <img src="media/img/icon-user.png" class="icon-user" alt="">
-    </div>
-    <div class="text-center mt-4 name">
-        <br>
-        <span>
-            تسجيل دخول
-        </span>
-    </div>
 
+<div class="wrapper">
+
+    <div class="text-center mt-4 name">
+        <h3 class="cairo f-w-b">
+            تسجيل دخول
+        </h3>
+    </div>
 
     <form class="p-3 mt-3" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
-                <label for="username" class="form-label">اسم المستخدم :</label>
+                <label for="username" class="form-label cairo-semibold">اسم المستخدم :</label>
                 <input type="text" name="username" id="username" placeholder="اسم المستخدم " class="form-control w-100" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
             </div>
-            <!-- <input type="text" name="username" id="username" placeholder="username"> -->
         </div>
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
-                <label for="username" class="form-label">كلمة المرور :</label>
+                <label for="username" class="form-label cairo-semibold ">كلمة المرور :</label>
                 <div class="d-flex flex-row align-items-center">
-                    <div class="div-hide-password-login-form" id="togglePassword">
-                        <span class="fas fa-eye-slash input-group-text bg-transparent border-0 pe-auto" style="cursor: pointer !important; height: 24px;" id="eyeIcon"></span>
+                    <div class="div-hide-password-login-form " id="togglePassword">
+                        <span class="fas fa-eye-slash input-group-text bg-transparent border-0 pe-auto " id="eyeIcon"></span>
                     </div>
-                    <input type="password" class="login-form-password form-control rounded-0"  name="password" id="password" placeholder="password">
+                    <input type="password" class="login-form-password form-control rounded-0" name="password" id="password" placeholder="password">
                 </div>
             </div>
         </div>
-        <button class="btn mt-3">تسجيل دخول</button>
+        <button class="btn mt-3 cairo">تسجيل دخول</button>
+        <div class="py-2">
+            <a href="signup.php" class="text-black cairo text-blue-hover">انشاء حساب</a>
+        </div>
     </form>
 
 </div>
