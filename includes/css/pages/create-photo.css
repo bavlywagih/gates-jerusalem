@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'cairo-verse';
+    src: url('includes/font/Cairo-SemiBold.ttf') format('truetype');
+}
+
+#canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#canvas {
+    border: 1px solid #d3d3d3;
+}
+
+@media (max-width: 768px) {
+    #canvas {
+        width: 100%;
+        height: auto;
+    }
+}
+.div-create-photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column-reverse;
+}
+
+#canvas{
+    border: 1px solid #d3d3d3;
+}

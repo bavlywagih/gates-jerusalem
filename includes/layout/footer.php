@@ -1,46 +1,57 @@
+<span class="up"><i class="fa-solid fa-chevron-up"></i></span>
 
-    <style>
-        .nav-active-link {
-            color: var(--main-color) !important;
-        }
+<footer class="footer no-print">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9 text-center">
+                <div class="footer-site-logo mb-4">
+                    <h5 class="cairo">ابواب اورشليم</h5>
+                </div>
+                <ul class="list-unstyled nav-links footer-ul-style">
+                    <?php if (!isset($_SESSION['username'])) { ?>
 
-        .font-footer {
-            color: #fff;
-            font-family: 'Cairo', sans-serif;
-        }
-    </style>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="login.php" class="text-white           text-white-footer <?php echo $activelogin    ?   'nav-active-link' : '' ?>">تسجيل الدخول </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="signup.php" class="text-white          text-white-footer <?php echo $activesignup   ?   'nav-active-link' : '' ?>">إنشاء حساب </a></li>
 
+                    <?php } else { ?>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="index.php" class="text-white           text-white-footer <?php echo $activeHome     ?   'nav-active-link' : '' ?>">الصفحه الرئيسية </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="gates-jerusalem.php" class="text-white text-white-footer <?php echo $activeContent  ?   'nav-active-link' : '' ?>">ابواب اورشليم </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="add-pages.php" class="text-white       text-white-footer <?php echo $activeaddPage  ?   'nav-active-link' : '' ?>">انشاء صفحات </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="profile.php" class="text-white         text-white-footer <?php echo $activeprofile  ?   'nav-active-link' : '' ?>">الصفحه الشخصيه </a></li>
 
-    <span class="up"><i class="fa-solid fa-chevron-up"></i></span>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="logout.php" class="text-white text-white-footer">تسجيل خروج</a></li>
+                    <?php } ?>
+                </ul>
 
-    <footer class="no-print">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-3 links">
-                    <ul>
-                        <li><a href="index.php" class="font-footer <?php echo $activeHome ? 'nav-active-link' : '' ?>">الصفحة الرئيسية</a></li>
-                        <?php if (!isset($_SESSION['username'])) { ?>
-                            <li><a class="nav-link text-white <?php echo $activelogin ? 'nav-active-link' : '' ?> font-footer" href="login.php">تسجيل الدخول</a></li>
-                            <li><a href="signup.php" class="<?php echo $activesignup ? 'nav-active-link' : '' ?> font-footer" href="signup.php">انشاء حساب</a></li>
-                        <?php } else { ?>
-                            <li><a href="gates-jerusalem.php" class="font-footer <?php echo $activeContent ? 'nav-active-link' : '' ?>">ابواب اورشليم</a></li>
-                            <li><a href="search.php" class="font-footer <?php echo $activeSearchPage ? 'nav-active-link' : '' ?>">ابحث عن الاباء البطاركة</a></li>
-                            <li><a href="search.php" class="font-footer <?php echo $activeaddPage ? 'nav-active-link' : '' ?>">انشاء صفحات</a></li>
-                            <li><a href="logout.php" class="font-footer">تسجيل خروج</a></li>
-                        <?php } ?>
+                <div class="social mb-4">
+                    <ul class="list-unstyled">
+                        <ul class="social-icon">
+                            <li><a href="https://www.facebook.com/profile.php?id=61561516863128" class="fb"><i class="fa-brands fa-facebook "></i></a></li>
+                            <li><a href="https://api.whatsapp.com/send?phone=201063325054" class="wa"><i class="fa-brands fa-whatsapp "></i></a></li>
+                            <li><a href="mailto:bavlywagih696@gmail.com" class="em"><i class="fa-solid fa-envelope"></i></a></li>
+                        </ul>
                     </ul>
                 </div>
-                <div class="col social-links">
-                    <a href="https://www.facebook.com/profile.php?id=61561516863128"><i class="fab fa-facebook"></i></a>
-                    <a href="https://api.whatsapp.com/send?phone=201063325054 "><i class="fab fa-whatsapp"></i></a>
-                    <a href="mailto:bavlywagih696@gmail.com"><i class="fa fa-envelope"></i></a>
-                </div>
-            </div>
-            <p class="copyright">All Rights reserved <a href="https://www.facebook.com/profile.php?id=61561516863128">Bavly</a> © 2024</p>
-        </div>
-    </footer>
 
-    <?php
+                <div class="copyright">
+                    <p class="copyright">All rights reserved <a href="https://www.facebook.com/profile.php?id=61561516863128" class="text-white text-white-footer" target="_blank" rel="noopener noreferrer">Bavly</a> © 2024</p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="includes/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="includes/js/jquery.js"></script>
+<script type="text/javascript" src="includes/js/all.min.js"></script>
+<script src="includes/js/popper.min.js"></script>
+<script src="includes/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="includes/js/main.js"></script>
+
+<?php
+if (isset($_SESSION['username'])) {
+
     $query = "
         SELECT id, page_title AS title, 'page' AS type 
         FROM pages 
@@ -51,14 +62,9 @@
 
     $stmt = $con->query($query);
     $row_count = $stmt->rowCount();
-    ?>
+?>
 
-    <script type="text/javascript" src="includes/js/tinymce/tinymce.min.js"></script>
-    <script type="text/javascript" src="includes/js/jquery.js"></script>
-    <script type="text/javascript" src="includes/js/all.min.js"></script>
-    <script src="includes/js/popper.min.js"></script>
-    <script src="includes/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="includes/js/main.js"></script>
+
 
     <script>
         let el = document.querySelector(".scroller");
@@ -160,7 +166,7 @@
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
         $user = $stmt->fetch();
-        $userId = $user['id']; 
+        $userId = $user['id'];
         $fullname = $user['fullname'];
         $name = $fullname;
         $nameArray = explode(" ", $name);
@@ -168,8 +174,37 @@
     }
     ?>
     <script>
-        <?php if (isset($fullname)){ ?>
+        <?php if (isset($fullname)) { ?>
             document.getElementById("navbarUsername").innerHTML = "<?php echo $nameuser; ?>";
-        <?php } ?>
+        <?php }
+    } ?>
     </script>
+    <script>
+        function adjustFooterPosition() {
+            const footer = document.querySelector('footer');
+            const body = document.body;
+            const html = document.documentElement;
 
+            // الحصول على ارتفاعات العناصر
+            const bodyHeight = body.offsetHeight;
+            const windowHeight = window.innerHeight;
+            console.log(bodyHeight);
+            if (bodyHeight < windowHeight) {
+                // إذا كان المحتوى أقل من ارتفاع النافذة، اجعل الفوتر ثابتًا في الأسفل
+                footer.style.position = 'fixed';
+                footer.style.bottom = '-125';
+                footer.style.left = '0';
+                footer.style.width = '100%';
+            } else {
+                // إذا كان المحتوى أكبر من ارتفاع النافذة، اجعل الفوتر بوضعه الطبيعي
+                footer.style.position = 'static';
+
+            }
+        }
+
+        // استدعاء الدالة عند تحميل الصفحة
+        window.addEventListener('load', adjustFooterPosition);
+
+        // استدعاء الدالة عند تغيير حجم النافذة
+        window.addEventListener('resize', adjustFooterPosition);
+    </script>

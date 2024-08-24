@@ -1,7 +1,6 @@
 <?php
 session_start();
-require 'connect.php';
-
+require_once 'connect.php';
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
     exit();
@@ -134,15 +133,16 @@ $images = $stmt->fetchAll();
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 0, 0, 0.7);
+            background: rgb(255 0 0 / 50%);
             border: none;
             color: white;
-            padding: 8px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1rem;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
             transition: background 0.3s ease;
+            width: 30px;
+            height: 30px;
         }
 
         .delete-btn:hover {
@@ -294,7 +294,7 @@ $images = $stmt->fetchAll();
 
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', function(event) {
-                event.stopPropagation(); 
+                event.stopPropagation();
                 const imageId = this.getAttribute('data-image-id');
 
                 fetch('gallery-profile.php', {

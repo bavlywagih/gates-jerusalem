@@ -65,3 +65,33 @@
 .font-awesom-icon-details-style{
     padding: 3px;
 }
+a {
+    color: blue;
+    text-decoration: underline;
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+    .patriarch-details-container{
+        width: 100% !important;
+        margin: 10px !important;
+        min-height: 415px !important;
+        background: white !important;
+        border: 0 !important;
+    }
+}
+.patriarch-details-container{
+    width: 75%;
+    margin: 120px auto;
+    min-height: 415px;
+}
+.dropdown-div{
+    display: flex;
+    flex-direction: row-reverse;
+}

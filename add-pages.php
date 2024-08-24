@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ob_start();
 if (!isset($_GET["add"])) {
     header('Location: add-pages.php?add=verse');
     exit();
@@ -16,9 +16,8 @@ if (!in_array($add, ["verse", "page", "manyverse"])) {
 
 if (isset($_SESSION['username'])) {
     if ($_SESSION['group-id'] == 1) {
+        require_once "./connect.php";
         require_once "./includes/layout/header.php";
-        require_once "./includes/layout/nav.php";
-        require_once 'connect.php';
         require_once 'functions.php';
 
         $pageData = [
@@ -149,39 +148,41 @@ if (isset($_SESSION['username'])) {
                 echo "خطأ في قاعدة البيانات: " . $e->getMessage();
             }
         }
+        ob_end_flush();
+
 ?>
         <div class="container my-3 no-print">
-            <div class="card rounded-3 card-w-90" style="width: 60%; margin: auto;">
-                <div class="card-body m-auto" style="width: 95%;">
-                    <h5 class="card-title text-center" id="card-title"><?= $id ? 'تعديل الصفحة أو الآية' : 'إنشاء آية أو صفحة' ?></h5>
+            <div class="card rounded-3 card-w-90 card-div-add-pages">
+                <div class="card-body m-auto card-body-div">
+                    <h5 class="card-title text-center f-w-b cairo" id="card-title"><?= $id ? 'تعديل الصفحة أو الآية' : 'إنشاء آية أو صفحة' ?></h5>
                     <form action="" method="POST" enctype="multipart/form-data" id="page-form">
                         <input type="hidden" name="removed_image_ids" id="removed_image_ids" value="">
                         <div class="form-group">
                             <div class="d-flex flex-column">
-                                <label for="file-picker" class="form-label" id="label-page-title"> عنوان الصفحة :</label>
+                                <label for="file-picker" class="form-label cairo-semibold " id="label-page-title"> عنوان الصفحة :</label>
                                 <input type="text" required class="form-control" name="page_title" placeholder="اكتب عنوان الصفحة هنا" value="<?= htmlspecialchars($pageData['page_title']) ?>">
                             </div>
                             <?php if ($pageData['id_select'] == '0') { ?>
                                 <div class="d-flex flex-column" id="verse-reference-div">
-                                    <label for="file-picker" class="form-label" id="label-verse-reference"> شاهد الآية :</label>
+                                    <label for="file-picker" class="form-label cairo-semibold " id="label-verse-reference"> شاهد الآية :</label>
                                     <input type="text" class="form-control" name="verse_reference" placeholder="اكتب شاهد الآية هنا" id="input-verse-reference" value="<?= htmlspecialchars($pageData['verse_reference']) ?>">
                                 </div>
                             <?php } ?>
 
                             <?php if ($pageData['id_select'] == '1') { ?>
                                 <div class="my-2">
-                                    <label for="file-picker" class="form-label" id="label-verse"> محتوى الصفحة: </label>
-                                    <textarea class="form-control" name="verse" id="post-editor" rows="5" style="height: 400px;"><?= htmlspecialchars($pageData['verse']) ?></textarea>
+                                    <label for="file-picker" class="form-label cairo-semibold " id="label-verse"> محتوى الصفحة: </label>
+                                    <textarea class="form-control form-control-textarea" name="verse" id="post-editor" rows="5"><?= htmlspecialchars($pageData['verse']) ?></textarea>
                                 </div>
 
                                 <?php if (!empty($pageImages)) { ?>
                                     <div class="my-2">
-                                        <label class="form-label">الصور الحالية:</label>
+                                        <label class="form-label cairo-semibold ">الصور الحالية:</label>
                                         <div class="d-flex flex-wrap gap-2 ">
                                             <?php foreach ($pageImages as $image) { ?>
                                                 <div class="position-relative px-2">
-                                                    <img src="<?= $image['image_path'] ?>" alt="Page Image" style="width: 100px; height: 100px; object-fit: cover;">
-                                                    <button type="button" class="btn-close position-absolute top-0 start-100 translate-middle bg-danger remove-image-btn" data-image-id="<?= $image['id'] ?>" aria-label="Close" style="right: 75px !important;"></button>
+                                                    <img src="<?= $image['image_path'] ?>" class="page-img" alt="Page Image">
+                                                    <button type="button" class="btn-close position-absolute top-0 start-100 translate-middle bg-danger remove-image-btn remove-image-data-image-id " data-image-id="<?= $image['id'] ?>" aria-label="Close"></button>
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -189,31 +190,31 @@ if (isset($_SESSION['username'])) {
                                 <?php } ?>
 
                                 <div class="my-2">
-                                    <label for="image-upload" class="form-label" id="label-image-upload"> تحميل صور للصفحة: </label>
+                                    <label for="image-upload" class="form-label cairo-semibold " id="label-image-upload"> تحميل صور للصفحة: </label>
                                     <input type="file" class="form-control" name="page_images[]" id="image-upload" multiple>
                                 </div>
                             <?php } elseif ($pageData['id_select'] == '0') { ?>
                                 <div class="my-2">
-                                    <label for="file-picker" class="form-label" id="label-verse"> الآية: </label>
-                                    <textarea class="form-control" name="verse" id="text-area" rows="5" style="height: 400px;" placeholder="اكتب الآية هنا"><?= htmlspecialchars($pageData['verse']) ?></textarea>
+                                    <label for="file-picker" class="form-label cairo-semibold " id="label-verse"> الآية: </label>
+                                    <textarea class="form-control form-control-verse" name="verse" id="text-area" rows="5" placeholder="اكتب الآية هنا"><?= htmlspecialchars($pageData['verse']) ?></textarea>
                                 </div>
                             <?php } elseif ($pageData['id_select'] == '2') { ?>
                                 <div class="my-2">
-                                    <label for="file-picker" class="form-label" id="label-verse"> آيات متعددة: </label>
-                                    <textarea class="form-control" name="verse" id="post-editor" rows="10" style="height: 500px;" placeholder="اكتب الآيات هنا"><?= htmlspecialchars($pageData['verse']) ?></textarea>
+                                    <label for="file-picker" class="form-label cairo-semibold " id="label-verse"> آيات متعددة: </label>
+                                    <textarea class="form-control post-editor-verse" name="verse" id="post-editor" rows="10" placeholder="اكتب الآيات هنا"><?= htmlspecialchars($pageData['verse']) ?></textarea>
                                 </div>
                             <?php } ?>
 
                             <div class="my-2">
-                                <label for="file-picker" class="form-label"> اختيار الصفحة: </label>
+                                <label for="file-picker" class="form-label cairo-semibold "> اختيار الصفحة: </label>
                                 <select class="form-select" name="id_select" id="id-select" onchange="navigate()">
-                                    <option value="0" <?= $pageData['id_select'] == '0' ? 'selected' : '' ?>>آية</option>
-                                    <option value="1" <?= $pageData['id_select'] == '1' ? 'selected' : '' ?>>صفحة</option>
-                                    <option value="2" <?= $pageData['id_select'] == '2' ? 'selected' : '' ?>>آيات متعددة</option>
+                                    <option value="0" <?= $pageData['id_select'] == '0' ? 'selected' : '' ?> class="cairo-semibold ">آية</option>
+                                    <option value="1" <?= $pageData['id_select'] == '1' ? 'selected' : '' ?> class="cairo-semibold ">صفحة</option>
+                                    <option value="2" <?= $pageData['id_select'] == '2' ? 'selected' : '' ?> class="cairo-semibold ">آيات متعددة</option>
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success" style="width: 100%;"><?= $id ? 'تحديث' : 'إرسال' ?></button>
+                        <button type="submit" class="btn btn-success cairo w-100" ><?= $id ? 'تحديث' : 'إرسال' ?></button>
                     </form>
                 </div>
             </div>

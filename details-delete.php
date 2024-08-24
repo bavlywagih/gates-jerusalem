@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+require_once 'connect.php';
 
 $id_to_delete = $_GET['gates-jerusalem-Id-delete'];
 if (!isset($id_to_delete)) {

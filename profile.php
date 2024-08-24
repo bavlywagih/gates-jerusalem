@@ -1,32 +1,32 @@
 <?php
 session_start();
+require_once 'connect.php';
 
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
     exit();
 }
-
 require_once "./includes/layout/header.php";
-require_once "./includes/layout/nav.php";
-require_once 'connect.php';
 require_once 'functions.php';
 
 $userId  = $_SESSION['id'];
 $query = "SELECT * FROM users WHERE id = :id LIMIT 1";
-$stmt = $con->prepare($query);
+$stmt = $pdo->prepare($query);
 $stmt->bindParam(':id', $userId);
 $stmt->execute();
-$user = $stmt->fetch();
-$userId = $user['id']; 
-$username = $user['username'];
-$fullname = $user['fullname'];
-$_SESSION['username'] = $user['username'];
-$_SESSION['fullname'] = $user['fullname'];
+$user = $stmt->fetch(PDO::FETCH_OBJ); // استخدام PDO::FETCH_OBJ لارجاع كائن
+
+$userId = $user->id;
+$username = $user->username;
+$fullname = $user->fullname;
+$_SESSION['username'] = $user->username;
+$_SESSION['fullname'] = $user->fullname;
+
 $query = "SELECT image_path FROM profile_image WHERE user_id = :user_id ORDER BY upload_date DESC LIMIT 1";
-$stmt = $con->prepare($query);
+$stmt = $pdo->prepare($query);
 $stmt->bindParam(':user_id', $userId);
 $stmt->execute();
-$result = $stmt->fetch();
+$result = $stmt->fetch(PDO::FETCH_OBJ); // استخدام PDO::FETCH_OBJ لارجاع كائن
 ?>
 
 <!DOCTYPE html>
@@ -69,13 +69,15 @@ $result = $stmt->fetch();
             color: #0061f2;
             border-bottom-color: #0061f2;
         }
+
+        .container-xl-profile{
+            height: 77%;
+        }
     </style>
 </head>
 
 <body>
-
-    <div class="container-xl px-4 mt-4">
-
+    <div class="container-xl container-xl-profile px-4 mt-4">
         <nav class="nav nav-borders" style="flex-direction: row-reverse;">
             <a class="nav-link active ms-0" href="#">Profile</a>
         </nav>
@@ -83,15 +85,11 @@ $result = $stmt->fetch();
         <div class="row" style="flex-direction: row-reverse;">
             <div class="col-xl-4">
                 <form id="uploadForm" class="card-body text-center">
-
-                        <a href="gallery-profile.php">
-                            <img id="profileImage" class="img-account-profile rounded mb-2 text-black" src="<?= htmlspecialchars($result['image_path']) ?>" alt="Profile Image">
-                        </a>
-
+                    <a href="gallery-profile.php">
+                        <img id="profileImage" class="img-account-profile rounded mb-2 text-black" src="<?php if (isset($result->image_path)) {echo htmlspecialchars($result->image_path); } ?>" alt="Profile Image">
+                    </a>
                     <input type="file" id="profileImagesInput" name="profile_images[]" accept="image/*" required class="form-control mb-2" multiple>
-
                     <div class="small font-italic text-muted mb-4">JPG أو PNG بحجم لا يتجاوز 10 ميجابايت</div>
-
                 </form>
             </div>
             <div class="col-xl-8">
@@ -99,10 +97,10 @@ $result = $stmt->fetch();
                     <div class="card-header">تفاصيل الحساب</div>
                     <div class="card-body">
                         <form id="profileForm" action="update_profile.php" method="post">
-                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($userId); ?>">
+                            <input type="hidden" name="id" value="<?= htmlspecialchars($userId); ?>">
                             <div class="mb-3">
                                 <label for="fullname" class="form-label">الاسم الكامل</label>
-                                <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo htmlspecialchars($user['fullname']); ?>" required>
+                                <input type="text" class="form-control" id="fullname" name="fullname" value="<?= htmlspecialchars($user->fullname); ?>" required>
                             </div>
                         </form>
                     </div>
@@ -132,20 +130,17 @@ $result = $stmt->fetch();
                 .then(data => {
                     data.forEach(item => {
                         if (item.status === 'success') {
-                            document.getElementById('profileImage').src = item.image_path; 
+                            document.getElementById('profileImage').src = item.image_path;
                         } else {
-                            alert(item.message); 
+                            alert(item.message);
                         }
                     });
                 })
                 .catch(error => console.error('Error:', error));
         });
-    </script>
 
-    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('profileForm');
-
             const sendFormData = () => {
                 const formData = new FormData(form);
 
@@ -154,29 +149,32 @@ $result = $stmt->fetch();
                         body: formData
                     })
                     .then(response => response.text())
-                    .then(data => {
-                        location.assign("profile.php");
-                        alert('تم تحديث البيانات بنجاح');
-                        console.log('Success:', data);
+                    .then(text => {
+                        try {
+                            const data = JSON.parse(text);
+                            if (data.status === 'success') {
+                                // alert('تم تحديث البيانات بنجاح');
+                            } else {
+                                alert('حدث خطأ أثناء تحديث البيانات: ' + data.message);
+                            }
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                            alert('حدث خطأ في معالجة الرد من الخادم.');
+                        }
                     })
                     .catch(error => {
-                        alert('حدث خطأ أثناء تحديث البيانات');
                         console.error('Error:', error);
+                        alert('حدث خطأ أثناء تحديث البيانات');
                     });
             };
 
             form.querySelectorAll('input').forEach(input => {
                 input.addEventListener('change', sendFormData);
             });
-
         });
-        
     </script>
 
-    <?php
-    require_once './includes/layout/footer.php';
-    ?>
-
+    <?php require_once './includes/layout/footer.php'; ?>
 </body>
 
 </html>

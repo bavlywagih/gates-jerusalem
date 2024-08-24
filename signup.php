@@ -7,16 +7,45 @@ if (isset($_SESSION['username'])) {
 
 require_once('includes/layout/header.php');
 require_once('connect.php');
-require_once('includes/layout/nav.php');
 
 function generateRandomUsername($con)
 {
     $words = array(
-        'saint', 'icon', 'cross', 'liturgy', 'bishop', 'priest', 'deacon', 'monk',
-        'nun', 'cathedral', 'psalm', 'gospel', 'apostle', 'martyr', 'holy', 'baptism',
-        'chrismation', 'eucharist', 'orthodox', 'vespers', 'hymn', 'fasting', 'pascha',
-        'nativity', 'trinity', 'resurrection', 'ascension', 'pentecost', 'transfiguration',
-        'annunciation', 'theotokos', 'iconostasis', 'clergy', 'divine', 'sacrament'
+        'saint',
+        'icon',
+        'cross',
+        'liturgy',
+        'bishop',
+        'priest',
+        'deacon',
+        'monk',
+        'nun',
+        'cathedral',
+        'psalm',
+        'gospel',
+        'apostle',
+        'martyr',
+        'holy',
+        'baptism',
+        'chrismation',
+        'eucharist',
+        'orthodox',
+        'vespers',
+        'hymn',
+        'fasting',
+        'pascha',
+        'nativity',
+        'trinity',
+        'resurrection',
+        'ascension',
+        'pentecost',
+        'transfiguration',
+        'annunciation',
+        'theotokos',
+        'iconostasis',
+        'clergy',
+        'divine',
+        'sacrament'
     );
 
     $stmt = $con->prepare("SELECT username FROM users WHERE username LIKE 'user-%'");
@@ -60,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $fullname;
             $_SESSION['group-id'] = 0;
-            $_SESSION['id'] = $row['id'];
+            $_SESSION['id'] = $con->lastInsertId();
             header('location: index.php');
             exit();
         } else {
@@ -74,45 +103,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <div class="wrapper">
-    <div class="logo">
-        <img src="media/img/icon-user.png" class="icon-user" alt="">
-    </div>
-    <div class="text-center  name">
-        <br>
-        <span>
-            تسجيل دخول
-        </span>
+    <div class="text-center mt-2 name">
+        <h3 class="cairo f-w-b">
+            انشاء حساب
+        </h3>
     </div>
 
 
     <form class="p-3 mt-3" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
-                <label for="username" class="form-label">اسم المستخدم :</label>
-                <input type="text" id="disabledInput" style="cursor: not-allowed;" name="username" id="username" readonly placeholder="اسم المستخدم " class=" user-form-signup form-control w-100" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" value="<?php echo generateRandomUsername($con); ?>">
-                <span style="font-size:small; color:red;" data-translate="user-name-inform-input">* اسم المستخدم لا يمكن تعديله ويجب الاحتفاظ به لأنه مطلوب لتسجيل الدخول.</span>
+                <label for="username" class="form-label cairo-semibold">اسم المستخدم :</label>
+                <input type="text" id="disabledInput" name="username" id="username" readonly placeholder="اسم المستخدم " class=" user-form-signup form-control w-100 disabledInput" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" value="<?php echo generateRandomUsername($con); ?>">
+                <span class="user-name-inform-input el-messiri " data-translate="user-name-inform-input">* اسم المستخدم لا يمكن تعديله ويجب الاحتفاظ به لأنه مطلوب لتسجيل الدخول.</span>
             </div>
         </div>
 
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
-                <label for="username" class="form-label">كلمة المرور :</label>
+                <label for="username" class="form-label cairo-semibold">كلمة المرور :</label>
                 <div class="d-flex flex-row align-items-center">
-                    <div class="div-hide-password-login-form" id="togglePassword" style="padding-top: 4px; padding-bottom: 4px;">
-                        <span class="fas fa-eye-slash input-group-text bg-transparent border-0 pe-auto" style="cursor: pointer !important;" id="eyeIcon"></span>
+                    <div class="div-hide-password-login-form" id="togglePassword">
+                        <span class="fas fa-eye-slash input-group-text bg-transparent border-0 pe-auto eyeIcon-cursor" id="eyeIcon"></span>
                     </div>
-                    <input type="password" class="form-control rounded-0" name="password" id="password" placeholder="password">
+                    <input type="password" class="form-control rounded-0 input-background-signup" name="password" id="password" placeholder="password">
                 </div>
             </div>
         </div>
 
         <div class="input-group  flex-column">
-            <label for="fullname" class="form-label">اسم المستخدم :</label>
-            <input type="text" name="fullname" class="form-control w-100" id="fullname" placeholder="اسم المستخدم كامل" aria-label="fullname">
+            <label for="fullname" class="form-label cairo-semibold">اسم المستخدم :</label>
+            <input type="text" name="fullname" class="form-control w-100 input-background-signup " id="fullname" placeholder="اسم المستخدم كامل" aria-label="fullname">
         </div>
 
 
-        <button class="btn mt-3">تسجيل دخول</button>
+        <button class="btn mt-3 cairo">انشاء حساب</button>
+        <div class="py-2">
+            <a href="login.php" class="text-black cairo text-blue-hover">تسجيل دخول</a>
+        </div>
     </form>
 
 

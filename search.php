@@ -3,8 +3,6 @@ session_start();
 if (isset($_SESSION['username'])) {
 
     require_once "./includes/layout/header.php";
-    require_once "./includes/layout/nav.php";
-    require_once 'connect.php';
     require_once 'functions.php';
 
     if (isset($_GET["search"]) && trim($_GET["search"]) != null) {

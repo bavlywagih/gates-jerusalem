@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 
 if (isset($_SESSION['username'])) {
     require_once 'connect.php';
@@ -14,49 +15,28 @@ if (isset($_SESSION['username'])) {
         $verse_reference = $row['verse_reference'];
         $verse = $row['verse'];
         $id_select = $row['id_select'];
+    }else{
+        header('location: gates-jerusalem.php');
+        exit();
     }
+    ob_end_flush();
 
     if ($id_select == 0) {
 ?>
-        <div>
 
-            <style>
-                @font-face {
-                    font-family: 'cairo-verse';
-                    src: url('includes/font/Cairo-SemiBold.ttf') format('truetype');
-                }
+<div>
+            <link rel="stylesheet" href="includes/css/pages/create-photo.css">
 
-                #canvas-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                }
 
-                #canvas {
-                    border: 1px solid #d3d3d3;
-                }
-
-                @media (max-width: 768px) {
-                    #canvas {
-                        width: 100%;
-                        height: auto;
-                    }
-                }
-            </style>
-            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;flex-direction: column-reverse;">
-                <canvas id="canvas" width="1199" height="630" style="border:1px solid #d3d3d3;"></canvas>
+            <div class="div-create-photo" >
+                <canvas id="canvas" width="1199" height="630" ></canvas>
                 <button onclick="downloadImage()">تحميل الصوره</button>
+                <a href="page.php?id=<?php echo $row['id'];?>">رجوع</a>
             </div>
 
 
 
             <script>
-                if (!sessionStorage.getItem('reloaded')) {
-                    sessionStorage.setItem('reloaded', 'true');
-                    location.reload();
-                }
-
                 function removeTashkeel(text) {
                     return text.replace(/[\u0600-\u06FF\u0750-\u077F]/g, function(char) {
                         return char.replace(/[\u064B-\u0652\u0670]/g, '');
@@ -134,6 +114,15 @@ if (isset($_SESSION['username'])) {
                 }
 
                 window.onload = drawTextOnImage;
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.title = "<?php echo htmlspecialchars($page_title); ?>";
+                });
+
+                if (!sessionStorage.getItem('reloaded')) {
+                    sessionStorage.setItem('reloaded', 'true');
+                    location.reload();
+                }
             </script>
         </div>
 

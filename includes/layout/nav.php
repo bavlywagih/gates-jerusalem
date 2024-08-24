@@ -8,6 +8,7 @@ $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
 $activeHome = $currentPageURL  === $baseUrl  . "/index.php";
 $activeContent = $currentPageURL === $baseUrl  . "/gates-jerusalem.php";
 $activeSearchPage = $currentPageURL === $baseUrl  . "/search.php";
+$activeprofile = $currentPageURL === $baseUrl  . "/profile.php";
 if (isset($_GET["add"])) {
     $url_addPage = "";
     if ($_GET["add"] == "verse") {
@@ -15,6 +16,9 @@ if (isset($_GET["add"])) {
     }
     if ($_GET["add"] == "page") {
         $url_addPage = "page";
+    }
+    if ($_GET["add"] == "manyverse") {
+        $url_addPage = "manyverse";
     }
     $activeaddPage = $currentPageURL === $baseUrl  . "/add-pages.php?add=" . $url_addPage;
 }
@@ -45,7 +49,7 @@ if (isset($_GET["search"])) {
         <div class="collapse navbar-collapse" id="mobileNav">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-white <?php echo $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
+                    <a class="nav-link text-white cairo-semibold <?php echo $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
                 </li>
                 <?php if (isset($_SESSION['username'])) { ?>
                     <li class="nav-item">
@@ -53,12 +57,14 @@ if (isset($_GET["search"])) {
                     </li>
                 <?php } ?>
                 <?php
-                if ($_SESSION['group-id'] == 1) {
+                if (isset($_SESSION['group-id'])) {
+                    if ($_SESSION['group-id'] == 1) {
                 ?>
-                    <li class="nav-item">
-                        <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
+                        </li>
                 <?php
+                    }
                 }
                 ?>
             </ul>
@@ -67,7 +73,7 @@ if (isset($_GET["search"])) {
             ?>
                 <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
                     <label for="search-input" class="visually-hidden"></label>
-                    <input id="search-input" class="form-control me-2" value="<?php echo $_GET["search"] ?? '' ?>" type="search" placeholder="بحث عن آباء بطاركة..." name="search">
+                    <input id="search-input" class="form-control me-2" value="<?php echo $_GET["search"] ?? '' ?>" type="search" placeholder="البحث..." name="search">
                     <button class="search-btn" type="submit">بحث</button>
                 </form>
             <?php
@@ -89,10 +95,10 @@ if (isset($_GET["search"])) {
                 <div class="d-flex me-auto ms-0 button-nav-name" style="font-weight: 300; flex-basis: 13%;  flex-direction: row-reverse;">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-white <?php echo $activelogin ? 'nav-active-link' : '' ?>" href="login.php" style="font-family: 'Cairo', sans-serif;">تسجيل دخول</a>
+                            <a class="nav-link text-white cairo <?php echo $activelogin ? 'nav-active-link' : '' ?>" href="login.php" style="font-family: 'Cairo', sans-serif;">تسجيل دخول</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white <?php echo $activesignup ? 'nav-active-link' : '' ?>" href="signup.php" style="font-family: 'Cairo', sans-serif;">أنشاء حساب</a>
+                            <a class="nav-link text-white cairo <?php echo $activesignup ? 'nav-active-link' : '' ?>" href="signup.php" style="font-family: 'Cairo', sans-serif;">أنشاء حساب</a>
                         </li>
                     </ul>
                 </div>
@@ -101,32 +107,55 @@ if (isset($_GET["search"])) {
         </div>
     </div>
 </nav>
-<script>
-    document.getElementById('saveProfileBtn').addEventListener('click', () => {
-        const form = document.getElementById('profileForm');
-        const formData = new FormData(form);
+<?php
 
-        fetch(form.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Response Data:', data); 
-                if (data.status === 'success') {
-                    const nameArray = data.fullname.split(" ");
-                    const nameuser = nameArray[0];
-                    document.getElementById('navbarUsername').textContent = nameuser;
-                    alert('تم تحديث البيانات بنجاح');
+
+if (isset($_SESSION['username'])) {
+    $requestUri = $_SERVER['REQUEST_URI'];
+
+    $filename = basename($requestUri);
+    if ($filename == "profile.php") {
+?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('profileForm');
+
+                if (form) {
+                    const sendFormData = () => {
+                        const formData = new FormData(form);
+
+                        fetch(form.action, {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Response Data:', data);
+                                if (data.status === 'success') {
+                                    const nameArray = data.fullname.split(" ");
+                                    const nameuser = nameArray[0];
+                                    document.getElementById('navbarUsername').textContent = nameuser;
+                                    // alert('تم تحديث البيانات بنجاح');
+                                } else {
+                                    alert('حدث خطأ أثناء تحديث البيانات: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('حدث خطأ أثناء تحديث البيانات');
+                            });
+                    };
+
+                    // إضافة مستمع الحدث لتحديث البيانات عند تغيير أي حقل
+                    form.querySelectorAll('input').forEach(input => {
+                        input.addEventListener('change', sendFormData);
+                    });
                 } else {
-
-                    alert('حدث خطأ أثناء تحديث البيانات: ' + data.message);
+                    console.error('Form with ID profileForm not found');
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('حدث خطأ أثناء تحديث البيانات');
             });
-    });
-</script>
+        </script>
+<?php }
+} ?>
+
 <div class="scroller"></div>

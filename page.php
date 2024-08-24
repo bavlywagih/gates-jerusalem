@@ -1,10 +1,9 @@
 <?php
 session_start();
+ob_start();
 
 if (isset($_SESSION['username'])) {
     require_once "./includes/layout/header.php";
-    require_once "./includes/layout/nav.php";
-    require_once 'connect.php';
     require_once 'functions.php';
 
 
@@ -26,6 +25,8 @@ if (isset($_SESSION['username'])) {
     $stmt = $con->prepare("SELECT * FROM page_images WHERE page_id = ?");
     $stmt->execute([$_GET['id']]);
     $images = $stmt->fetchAll();
+    ob_end_flush();
+
 ?>
     <?php if ($id_select == 0) { ?>
         <div class="patriarch-details-container p-3 shadow-lg rounded border" style="width: 75%; margin: 60px auto; min-height: 415px;">
@@ -34,11 +35,11 @@ if (isset($_SESSION['username'])) {
             <button onclick="toggleTashkeel()" class="btn btn-success">تبديل التشكيل</button>
             <a href="create-photo.php?id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">إنشاء صورة</a>
             <?php
-                if ($_SESSION['group-id'] == 1) {
+            if ($_SESSION['group-id'] == 1) {
             ?>
-            <a href="add-pages.php?add=verse&id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
+                <a href="add-pages.php?add=verse&id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
             <?php
-                }
+            }
             ?>
             <div class="content">
                 <div id="textContainer">
@@ -160,11 +161,11 @@ if (isset($_SESSION['username'])) {
 
         <a class="text-end text-black no-print" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a><br>
         <?php
-            if ($_SESSION['group-id'] == 1) {
+        if ($_SESSION['group-id'] == 1) {
         ?>
-        <a href="add-pages.php?add=page&id=<?php echo urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
-        <?php 
-            }
+            <a href="add-pages.php?add=page&id=<?php echo urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
+        <?php
+        }
         ?>
         <p class="text-center">عرض عنوان الصفحه:</p>
         <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
@@ -184,7 +185,11 @@ if (isset($_SESSION['username'])) {
         </div>
     <?php } ?>
 
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.title = "<?php echo htmlspecialchars($page_title);?>";
+        });
+    </script>
 
 
 

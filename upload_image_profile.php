@@ -1,12 +1,12 @@
 <?php
 session_start();
+require_once 'connect.php';
 
 if (!isset($_SESSION['username'])) {
-    echo json_encode(['status' => 'error', 'message' => 'الرجاء تسجيل الدخول أولاً']);
+    header('Location: login.php');
     exit();
 }
 
-require_once 'connect.php';
 
 $userId = $_SESSION['id'];
 
