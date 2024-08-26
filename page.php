@@ -4,9 +4,6 @@ ob_start();
 
 if (isset($_SESSION['username'])) {
     require_once "./includes/layout/header.php";
-    require_once 'functions.php';
-
-
     $stmt = $con->prepare("SELECT * FROM pages WHERE id = ?");
     $stmt->execute([$_GET['id']]);
     $row = $stmt->fetch();
@@ -26,25 +23,25 @@ if (isset($_SESSION['username'])) {
     $stmt->execute([$_GET['id']]);
     $images = $stmt->fetchAll();
     ob_end_flush();
-
 ?>
+
     <?php if ($id_select == 0) { ?>
-        <div class="patriarch-details-container p-3 shadow-lg rounded border" style="width: 75%; margin: 60px auto; min-height: 415px;">
+        <div class="patriarch-details-container gate-details-container p-3 shadow-lg rounded border">
             <p class="text-center">عرض نص الشاهد التالي من الكتاب المقدس:</p>
-            <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
+            <h2 class="text-center text-light-emphasis"><?= htmlspecialchars($page_title); ?></h2>
             <button onclick="toggleTashkeel()" class="btn btn-success">تبديل التشكيل</button>
-            <a href="create-photo.php?id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">إنشاء صورة</a>
+            <a href="create-photo.php?id=<?= urlencode($_GET['id']); ?>" class="btn btn-success">إنشاء صورة</a>
             <?php
-            if ($_SESSION['group-id'] == 1) {
+            if ($_SESSION['group-id'] >= 1) {
             ?>
-                <a href="add-pages.php?add=verse&id=<?php echo urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
+                <a href="add-pages.php?add=verse&id=<?= urlencode($_GET['id']); ?>" class="btn btn-success">تعديل</a>
             <?php
             }
             ?>
             <div class="content">
                 <div id="textContainer">
                     <h3 id="textOutput" style="text-align: center; font-family: 'Cairo', sans-serif;">
-                        <?php echo $verse . ' ' . $verse_reference; ?>
+                        <?= $verse . ' ' . $verse_reference; ?>
                     </h3>
                 </div>
             </div>
@@ -69,130 +66,39 @@ if (isset($_SESSION['username'])) {
 
     <?php } else { ?>
         <style>
-            a {
-                color: blue;
-                text-decoration: underline;
-            }
-
-            .container-page {
-                width: 100%;
-                overflow: hidden;
-            }
-
-            .image-section {
-                float: left;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .image-section img {
-                width: 80%;
-                height: auto;
-                border-radius: 10px;
-            }
-
-            .text-section {
-                flex: 2;
-                text-align: right;
-                font-size: 1.2em;
-                line-height: 1.6;
-                color: #333;
-            }
-
-            .text-section p {
-                margin: 0;
-                padding: 0;
-            }
-
-            @media print {
-                @page {
-                    margin-top: 15px;
-                    margin-bottom: 15px;
-                }
-
-                .no-print {
-                    display: none !important;
-                }
-
-                body {
-                    -webkit-print-color-adjust: exact !important;
-                }
-
-                a {
-                    color: blue;
-                    text-decoration: underline;
-                }
-
-                .container-page {
-                    width: 100%;
-                    overflow: hidden;
-                }
-
-                .image-section {
-                    float: left;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                .image-section img {
-                    width: 50%;
-                    height: auto;
-                    border-radius: 10px;
-                }
-
-                .text-section {
-                    flex: 2;
-                    text-align: right;
-                    font-size: 1.2em;
-                    line-height: 1.6;
-                    color: #333;
-                }
-
-                .text-section p {
-                    margin: 0;
-                    padding: 0;
-                }
-
-
-            }
         </style>
 
         <a class="text-end text-black no-print" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a><br>
         <?php
-        if ($_SESSION['group-id'] == 1) {
+        if ($_SESSION['group-id'] >= 1) {
         ?>
-            <a href="add-pages.php?add=page&id=<?php echo urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
+            <a href="add-pages.php?add=page&id=<?= urlencode($_GET['id']); ?>" class="text-end text-black no-print">تعديل</a>
         <?php
         }
         ?>
         <p class="text-center">عرض عنوان الصفحه:</p>
-        <h2 class="text-center text-light-emphasis"><?php echo htmlspecialchars($page_title); ?></h2>
+        <h2 class="text-center text-light-emphasis"><?= htmlspecialchars($page_title); ?></h2>
         <div class="container-page">
             <div class="image-section">
                 <?php
                 if (!empty($images)) {
                     foreach ($images as $image) { ?>
-                        <img src="<?php echo htmlspecialchars($image['image_path']); ?>" class="img-fluid py-2">
+                        <img src="<?= htmlspecialchars($image['image_path']); ?>" class="img-fluid py-2">
                 <?php
                     }
                 } ?>
             </div>
             <div class="text-section">
-                <p> <?php echo $verse ?></p>
+                <p> <?= $verse ?></p>
             </div>
         </div>
     <?php } ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.title = "<?php echo htmlspecialchars($page_title);?>";
+            document.title = "<?= htmlspecialchars($page_title);?>";
         });
     </script>
-
-
-
 
 <?php
     require_once './includes/layout/footer.php';

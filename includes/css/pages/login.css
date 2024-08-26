@@ -108,18 +108,12 @@ body {
         border-top: 1px solid #ced4da;
         border-bottom: 1px solid #ced4da;
 }
-.div-hide-password-login-form:hover{
-    background-color: #e6e6e6;
-    transition: 0.2s all ease-in-out;
-}
+
 .div-hide-password-login-form{
     display: block;
     padding-top: 4px;
     padding-bottom: 4px;
-    border-left: 1px solid #ced4da;
-    border-right: 1px solid #ced4da;
-    border-top: 1px solid #ced4da;
-    border-bottom: 1px solid #ced4da;
+
 }
 .text-blue-hover:hover {
     color: #0098dd !important;

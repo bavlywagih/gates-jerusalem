@@ -1,9 +1,8 @@
 <?php
 session_start(); 
 
-
 if (isset($_SESSION['username'])) {
-    $_SESSION = array();
+    $_SESSION = [];
 
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
@@ -12,10 +11,8 @@ if (isset($_SESSION['username'])) {
             $params["secure"], $params["httponly"]
         );
     }
-
     session_destroy();
 }
-
 header('Location: index.php');
 exit();
 ?>

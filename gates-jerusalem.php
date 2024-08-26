@@ -4,7 +4,7 @@ if (isset($_SESSION['username'])) {
 
     require_once "./includes/layout/header.php";
     require_once 'connect.php';
-    require_once 'functions.php';
+    
 
 
 
@@ -61,11 +61,11 @@ if (isset($_SESSION['username'])) {
 
     <?php
     if ($row_count != 12) {
-        if ($_SESSION['group-id'] == 1) {
+        if ($_SESSION['group-id'] >= 1) {
     ?>
 
             <div class="container my-3 no-print">
-                <div class="card rounded-3 card-w-90" style="width: 60%; margin: auto;">
+                <div class="card rounded-3 card-w-90 w-m" style="width: 60%; margin: auto;">
                     <div class="card-body m-auto">
                         <h5 class="card-title text-center cairo f-w-b">انشاء باب من ابواب اورشليم</h5>
                         <form action="" method="POST">

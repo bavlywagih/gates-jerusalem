@@ -4,21 +4,15 @@ if (isset($_SESSION['username'])) {
     header('location: index.php');
     exit();
 }
-
 require_once('includes/layout/header.php');
-require_once('connect.php');
 
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($con)) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-
     $stmt = $con->prepare("SELECT * FROM users WHERE username = ?  AND password = ? ");
-    $stmt->execute(array($username, $password));
+    $stmt->execute([$username, $password]);
     $row = $stmt->fetch();
     $count = $stmt->rowCount();
-
     if ($count > 0) {
         $_SESSION['username'] = $username;
         $_SESSION['fullname'] = $row['fullname'];
@@ -30,18 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "الاسم أو كلمة المرور غير صحيحة";
     }
 }
-
 ?>
 
 
 <div class="wrapper">
-
     <div class="text-center mt-4 name">
         <h3 class="cairo f-w-b">
             تسجيل دخول
         </h3>
     </div>
-
     <form class="p-3 mt-3" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
@@ -65,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="signup.php" class="text-black cairo text-blue-hover">انشاء حساب</a>
         </div>
     </form>
-
 </div>
+
 <script>
     function togglePasswordVisibility() {
         var passwordField = document.getElementById('password');
@@ -84,7 +75,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
 </script>
-<?php
-require_once('includes/layout/footer.php');
 
-?>
+<?php require_once('includes/layout/footer.php');?>

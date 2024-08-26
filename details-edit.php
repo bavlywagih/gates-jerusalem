@@ -7,7 +7,7 @@ if (isset($_SESSION['username'])) {
         exit();
     }
     require_once "./includes/layout/header.php";
-    require_once 'functions.php';
+    
 
     $gates_jerusalem_Id = $_GET['gates-jerusalem-Id-edit'];
     $query = "SELECT * FROM gates WHERE id = $gates_jerusalem_Id";
@@ -34,7 +34,7 @@ ob_end_flush();
 ?>
 
 
-        <div class="patriarch-details-container  p-3 shadow-lg  rounded border" style="width: 75%; margin: 120px auto; min-height: 415px;">
+        <div class="patriarch-details-container gates-details-container-edit  p-3 shadow-lg  rounded border" >
             <div class="content">
                 <h3 class="text-black text-center">تعديل <b><?php echo  $row['name']; ?> </b></h3>
 

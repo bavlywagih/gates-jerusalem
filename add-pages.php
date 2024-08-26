@@ -15,10 +15,10 @@ if (!in_array($add, ["verse", "page", "manyverse"])) {
 }
 
 if (isset($_SESSION['username'])) {
-    if ($_SESSION['group-id'] == 1) {
+    if ($_SESSION['group-id'] >= 1) {
         require_once "./connect.php";
         require_once "./includes/layout/header.php";
-        require_once 'functions.php';
+        
 
         $pageData = [
             'page_title' => '',
