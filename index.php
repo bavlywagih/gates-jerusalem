@@ -2,7 +2,7 @@
 session_start();
 
 require_once "./includes/layout/header.php";
-require_once 'functions.php';
+
 
 ?>
 

@@ -7,7 +7,7 @@ if (isset($_SESSION['username'])) {
         exit();
     }
     require_once "./includes/layout/header.php";
-    require_once 'functions.php';
+
 
     $gates_jerusalem_Id = $_GET['gates-jerusalem-Id'];
     $query = "SELECT * FROM gates WHERE id = $gates_jerusalem_Id";
@@ -19,7 +19,7 @@ if (isset($_SESSION['username'])) {
         exit();
     } else {
 
-        ob_end_flush();
+    ob_end_flush();
 
 ?>
 
@@ -29,25 +29,22 @@ if (isset($_SESSION['username'])) {
                 <button class="btn btn-secondary no-print" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-inset " style="z-index: 0;">
+                <ul class="dropdown-menu dropdown-menu-inset z-0">
 
                     <?php
-                    if ($_SESSION['group-id'] == 1) {
+                    if ($_SESSION['group-id'] >= 1) {
                     ?>
                         <li><a class="dropdown-item dropdown-item-details-styles" href="details-edit.php?gates-jerusalem-Id-edit=<?php echo $row['id']; ?>">تعديل <i class="fa-solid fa-pen-to-square font-awesom-icon-details-style"></i></a></li>
                         <li><a class="dropdown-item dropdown-item-details-styles" href="details-delete.php?gates-jerusalem-Id-delete=<?php echo $row['id']; ?>">حذف <i class="fa-regular fa-trash-can font-awesom-icon-details-style"></i></a></li>
                     <?php
                     }
                     ?>
-                    <li><a class="dropdown-item dropdown-item-details-styles no-print" style="cursor: pointer;" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a></li>
+                    <li><a class="dropdown-item dropdown-item-details-styles no-print eyeIcon-cursor" onclick="window.print()">طباعة هذه المعلومات... <i class="fa-solid fa-print font-awesom-icon-details-style"></i></a></li>
                 </ul>
             </div>
             <div class="content">
-                <h3 class="text-black text-center"><b><?php echo  $row['name']; ?></b></h3>
-                <div class="card-title el-messiri f-w-b"><?php echo $row['text']; ?></div>
-                <?php
-
-                ?>
+                <h3 class="text-black text-center"><b><?= $row['name']; ?></b></h3>
+                <div class="card-title el-messiri f-w-b"><?= $row['text']; ?></div>
                 <a class="mt-3 text-primary d-block text-start no-print" href="gates-jerusalem.php">إلي صفحة السابقة...</a>
                 <br>
                 <br>
@@ -113,7 +110,7 @@ if (isset($_SESSION['username'])) {
         </script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                document.title = "<?php echo  $row['name']; ?>";
+                document.title = "<?= $row['name']; ?>";
             });
         </script>
 <?php

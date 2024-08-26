@@ -14,10 +14,6 @@ $currentPageURL = rtrim($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_UR
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
         <title>ابواب اورشليم - بافلي وجيه</title>
-        <link rel="stylesheet" href="includes/css/vendor/all.min.css">
-        <link rel="stylesheet" href="includes/css/vendor/bootstrap.rtl.min.css">
-        <link rel="stylesheet" href="includes/css/vendor/bootstrap.min.css">
-        <link rel="stylesheet" href="includes/css/vendor/normalize.css">
         <link rel="stylesheet" href="includes/css/index.css">
         <link rel="icon" type="image/x-icon" href="media/img/logo.png" sizes="20x20">
         

@@ -1,17 +1,15 @@
 <?php
 session_start();
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username']) && isset($con)) {
     header('location: index.php');
     exit();
 }
-
 require_once('includes/layout/header.php');
-require_once('connect.php');
 
 function generateRandomUsername($con)
 {
-    $words = array(
-        'saint',
+    $words = [
+        'saint',   
         'icon',
         'cross',
         'liturgy',
@@ -46,8 +44,7 @@ function generateRandomUsername($con)
         'clergy',
         'divine',
         'sacrament'
-    );
-
+    ];
     $stmt = $con->prepare("SELECT username FROM users WHERE username LIKE 'user-%'");
     $stmt->execute();
     $usernames = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -61,7 +58,7 @@ function generateRandomUsername($con)
             $randomNumber = rand(1000, 9999);
             $username = 'user-' . $randomNumber;
             $stmt = $con->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
-            $stmt->execute(array($username));
+            $stmt->execute([$username]);
             $count = $stmt->fetchColumn();
         } while ($count > 0);
     } else {
@@ -70,7 +67,6 @@ function generateRandomUsername($con)
         } while (in_array($randomWord, $usedWords));
         $username = 'user-' . $randomWord;
     }
-
     return $username;
 }
 
@@ -93,9 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('location: index.php');
             exit();
         } else {
+            echo '<style>.spinner-wrapper { display: none; }</style>';
             echo "المستخدم موجود بالفعل";
         }
     } else {
+        echo '<style>.spinner-wrapper { display: none; }</style>';
         echo "جميع الحقول مطلوبه";
     }
 }
@@ -108,17 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             انشاء حساب
         </h3>
     </div>
-
-
-    <form class="p-3 mt-3" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+    <form class="p-3 mt-3" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
                 <label for="username" class="form-label cairo-semibold">اسم المستخدم :</label>
-                <input type="text" id="disabledInput" name="username" id="username" readonly placeholder="اسم المستخدم " class=" user-form-signup form-control w-100 disabledInput" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" value="<?php echo generateRandomUsername($con); ?>">
+                <input type="text" id="disabledInput" name="username" id="username" readonly placeholder="اسم المستخدم " class=" user-form-signup form-control w-100 disabledInput" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" value="<?= generateRandomUsername($con); ?>">
                 <span class="user-name-inform-input el-messiri " data-translate="user-name-inform-input">* اسم المستخدم لا يمكن تعديله ويجب الاحتفاظ به لأنه مطلوب لتسجيل الدخول.</span>
             </div>
         </div>
-
         <div class="form-field d-flex align-items-center">
             <div class="input-group  flex-column">
                 <label for="username" class="form-label cairo-semibold">كلمة المرور :</label>
@@ -164,7 +159,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
 </script>
 
-<?php
-require_once('includes/layout/footer.php');
-
-?>
+<?php require_once('includes/layout/footer.php');?>

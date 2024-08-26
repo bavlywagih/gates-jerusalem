@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'cairo-verse';
-    src: url('includes/font/Cairo-SemiBold.ttf') format('truetype');
+    src: url('../../font/Cairo-SemiBold.ttf') format('truetype');
 }
 
 #canvas-container {
@@ -30,4 +30,9 @@
 
 #canvas{
     border: 1px solid #d3d3d3;
+}
+@media print {
+    .no-print {
+        display: none !important;
+    }
 }

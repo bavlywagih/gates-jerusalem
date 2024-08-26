@@ -23,3 +23,25 @@
     margin: 2rem 0;
     font-weight: 600;
 }
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.result-count {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.patriarch-details-container {
+    margin-bottom: 15px;
+}
+
+.read-more {
+    cursor: pointer;
+    color: blue;
+}
+
+.hidden {
+    display: none;
+}

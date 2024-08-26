@@ -1,6 +1,10 @@
 /* GLOBAL SETTINGS */
 @import "fonts.css";
 @import "global.css";
+@import "vendor/all.min.css";
+@import "vendor/bootstrap.rtl.min.css";
+@import "vendor/bootstrap.min.css";
+@import "vendor/normalize.css";
 
 /* LAYOUTS */
 @import "layouts/scrollbar.css";
@@ -20,6 +24,8 @@
 @import "pages/dashboard.css";
 @import "pages/member.css";
 @import "pages/add-pages.css";
-
+@import "pages/page.css";
+@import "pages/profile.css";
+@import "pages/create-photo.css";
 
 

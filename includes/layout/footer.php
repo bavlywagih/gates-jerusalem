@@ -10,14 +10,20 @@
                 <ul class="list-unstyled nav-links footer-ul-style">
                     <?php if (!isset($_SESSION['username'])) { ?>
 
-                        <li class="cairo-semibold d-inline-block footer-li "> <a href="login.php" class="text-white           text-white-footer <?php echo $activelogin    ?   'nav-active-link' : '' ?>">تسجيل الدخول </a></li>
-                        <li class="cairo-semibold d-inline-block footer-li "> <a href="signup.php" class="text-white          text-white-footer <?php echo $activesignup   ?   'nav-active-link' : '' ?>">إنشاء حساب </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="login.php" class="text-white           text-white-footer <?= $activelogin    ?   'nav-active-link' : '' ?>">تسجيل الدخول </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="signup.php" class="text-white          text-white-footer <?= $activesignup   ?   'nav-active-link' : '' ?>">إنشاء حساب </a></li>
 
                     <?php } else { ?>
-                        <li class="cairo-semibold d-inline-block footer-li "> <a href="index.php" class="text-white           text-white-footer <?php echo $activeHome     ?   'nav-active-link' : '' ?>">الصفحه الرئيسية </a></li>
-                        <li class="cairo-semibold d-inline-block footer-li "> <a href="gates-jerusalem.php" class="text-white text-white-footer <?php echo $activeContent  ?   'nav-active-link' : '' ?>">ابواب اورشليم </a></li>
-                        <li class="cairo-semibold d-inline-block footer-li "> <a href="add-pages.php" class="text-white       text-white-footer <?php echo $activeaddPage  ?   'nav-active-link' : '' ?>">انشاء صفحات </a></li>
-                        <li class="cairo-semibold d-inline-block footer-li "> <a href="profile.php" class="text-white         text-white-footer <?php echo $activeprofile  ?   'nav-active-link' : '' ?>">الصفحه الشخصيه </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="index.php" class="text-white           text-white-footer <?= $activeHome     ?   'nav-active-link' : '' ?>">الصفحه الرئيسية </a></li>
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="gates-jerusalem.php" class="text-white text-white-footer <?= $activeContent  ?   'nav-active-link' : '' ?>">ابواب اورشليم </a></li>
+                        <?php
+                        if (isset($_SESSION['group-id'])) {
+                            if ($_SESSION['group-id'] >= 1) { ?>
+                                <li class="cairo-semibold d-inline-block footer-li "> <a href="add-pages.php" class="text-white       text-white-footer <?= $activeaddPage  ?   'nav-active-link' : '' ?>">انشاء صفحات </a></li>
+                        <?php }
+                        } ?>
+
+                        <li class="cairo-semibold d-inline-block footer-li "> <a href="profile.php" class="text-white         text-white-footer <?= $activeprofile  ?   'nav-active-link' : '' ?>">الصفحه الشخصيه </a></li>
 
                         <li class="cairo-semibold d-inline-block footer-li "> <a href="logout.php" class="text-white text-white-footer">تسجيل خروج</a></li>
                     <?php } ?>
@@ -63,8 +69,6 @@ if (isset($_SESSION['username'])) {
     $stmt = $con->query($query);
     $row_count = $stmt->rowCount();
 ?>
-
-
 
     <script>
         let el = document.querySelector(".scroller");
@@ -184,27 +188,20 @@ if (isset($_SESSION['username'])) {
             const footer = document.querySelector('footer');
             const body = document.body;
             const html = document.documentElement;
-
-            // الحصول على ارتفاعات العناصر
             const bodyHeight = body.offsetHeight;
             const windowHeight = window.innerHeight;
             console.log(bodyHeight);
             if (bodyHeight < windowHeight) {
-                // إذا كان المحتوى أقل من ارتفاع النافذة، اجعل الفوتر ثابتًا في الأسفل
                 footer.style.position = 'fixed';
                 footer.style.bottom = '-125';
                 footer.style.left = '0';
                 footer.style.width = '100%';
             } else {
-                // إذا كان المحتوى أكبر من ارتفاع النافذة، اجعل الفوتر بوضعه الطبيعي
                 footer.style.position = 'static';
-
             }
         }
 
-        // استدعاء الدالة عند تحميل الصفحة
         window.addEventListener('load', adjustFooterPosition);
 
-        // استدعاء الدالة عند تغيير حجم النافذة
         window.addEventListener('resize', adjustFooterPosition);
     </script>

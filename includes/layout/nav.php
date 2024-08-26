@@ -3,8 +3,6 @@ $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $urlParts = parse_url($currentUrl);
 $path = $urlParts['path'];
 $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
-
-
 $activeHome = $currentPageURL  === $baseUrl  . "/index.php";
 $activeContent = $currentPageURL === $baseUrl  . "/gates-jerusalem.php";
 $activeSearchPage = $currentPageURL === $baseUrl  . "/search.php";
@@ -31,7 +29,6 @@ if (isset($_GET["search"])) {
 } else {
     $activeSearch = ' ';
 }
-
 ?>
 
 
@@ -49,19 +46,19 @@ if (isset($_GET["search"])) {
         <div class="collapse navbar-collapse" id="mobileNav">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-white cairo-semibold <?php echo $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
+                    <a class="nav-link text-white cairo-semibold <?= $activeHome ? 'nav-active-link' : '' ?>" href="index.php">الصفحة الرئيسية</a>
                 </li>
                 <?php if (isset($_SESSION['username'])) { ?>
                     <li class="nav-item">
-                        <a class="nav-link text-white <?php echo $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
+                        <a class="nav-link text-white <?= $activeContent ? 'nav-active-link' : '' ?>" href="gates-jerusalem.php">ابواب اورشليم</a>
                     </li>
                 <?php } ?>
                 <?php
                 if (isset($_SESSION['group-id'])) {
-                    if ($_SESSION['group-id'] == 1) {
+                    if ($_SESSION['group-id'] >= 1) {
                 ?>
                         <li class="nav-item">
-                            <a class="nav-link text-white <?php echo $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
+                            <a class="nav-link text-white <?= $activeaddPage ? 'nav-active-link' : '' ?>" href="add-pages.php">انشاء صفحات</a>
                         </li>
                 <?php
                     }
@@ -73,7 +70,7 @@ if (isset($_GET["search"])) {
             ?>
                 <form class="d-flex me-auto ms-0 search-form" method="GET" action="search.php">
                     <label for="search-input" class="visually-hidden"></label>
-                    <input id="search-input" class="form-control me-2" value="<?php echo $_GET["search"] ?? '' ?>" type="search" placeholder="البحث..." name="search">
+                    <input id="search-input" class="form-control me-2" value="<?= $_GET["search"] ?? '' ?>" type="search" placeholder="البحث..." name="search">
                     <button class="search-btn" type="submit">بحث</button>
                 </form>
             <?php
@@ -86,7 +83,10 @@ if (isset($_GET["search"])) {
                         </button>
                         <ul class="dropdown-menu dropdown-menu-mobile" style="right: -120px;">
                             <li><a class="dropdown-item" href="profile.php">الصفحة الشخصيه</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <?php
+                                if ($_SESSION['group-id'] == 2) { ?>
+                                    <li><a class="dropdown-item" href="users.php">المستخدمين</a></li>
+                                <?php }?>
                             <li><a class="dropdown-item" href="logout.php">تسجيل خروج</a></li>
                         </ul>
                     </div>
@@ -95,10 +95,10 @@ if (isset($_GET["search"])) {
                 <div class="d-flex me-auto ms-0 button-nav-name" style="font-weight: 300; flex-basis: 13%;  flex-direction: row-reverse;">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-white cairo <?php echo $activelogin ? 'nav-active-link' : '' ?>" href="login.php" style="font-family: 'Cairo', sans-serif;">تسجيل دخول</a>
+                            <a class="nav-link text-white cairo <?= $activelogin ? 'nav-active-link' : '' ?>" href="login.php" style="font-family: 'Cairo', sans-serif;">تسجيل دخول</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white cairo <?php echo $activesignup ? 'nav-active-link' : '' ?>" href="signup.php" style="font-family: 'Cairo', sans-serif;">أنشاء حساب</a>
+                            <a class="nav-link text-white cairo <?= $activesignup ? 'nav-active-link' : '' ?>" href="signup.php" style="font-family: 'Cairo', sans-serif;">أنشاء حساب</a>
                         </li>
                     </ul>
                 </div>
@@ -146,7 +146,6 @@ if (isset($_SESSION['username'])) {
                             });
                     };
 
-                    // إضافة مستمع الحدث لتحديث البيانات عند تغيير أي حقل
                     form.querySelectorAll('input').forEach(input => {
                         input.addEventListener('change', sendFormData);
                     });
@@ -158,4 +157,4 @@ if (isset($_SESSION['username'])) {
 <?php }
 } ?>
 
-<div class="scroller"></div>
+<div class="scroller no-print"></div>
