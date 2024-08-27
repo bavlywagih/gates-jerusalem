@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($con)) {
                 <label for="username" class="form-label cairo-semibold ">كلمة المرور :</label>
                 <div class="d-flex flex-row align-items-center">
                     <div class="div-hide-password-login-form " id="togglePassword">
-                        <span class="fas fa-eye-slash input-group-text bg-transparent border-0 pe-auto " id="eyeIcon"></span>
+                        <span class="fas fa-eye-slash input-group-text input-group-text-icon bg-transparent border-0 pe-auto " id="eyeIcon"></span>
                     </div>
                     <input type="password" class="login-form-password form-control rounded-0" name="password" id="password" placeholder="password">
                 </div>

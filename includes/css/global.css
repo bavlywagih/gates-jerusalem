@@ -37,3 +37,41 @@ a {
         z-index: 99999;
         
 }
+
+
+@media only screen and (max-width: 768px) {
+.footer{
+    width: 100% !important;
+    position: sticky !important;
+}
+.container-xl-profile {
+    height: fit-content !important;
+}
+body {
+    overflow-x: hidden;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+*{
+    box-sizing: border-box !important;
+}
+.navbar,
+.map-container {
+    width: 100% !important;
+}
+.link-gates-jerusalem{
+    margin-left: 1px !important;
+}
+.input-group-text-icon{
+    font-size: xx-large !important;
+}
+.patriarch-details-container{
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+.dropdown-menu-inset{
+    inset: 0px 136px auto auto !important;
+}
+
+}

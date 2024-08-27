@@ -9,7 +9,7 @@ require_once('includes/layout/header.php');
 function generateRandomUsername($con)
 {
     $words = [
-        'saint',   
+        'saint',
         'icon',
         'cross',
         'liturgy',
@@ -74,16 +74,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $fullname = trim($_POST['fullname']);
-    if (!empty($username) && !empty($password) && !empty($fullname)) {
+    $phone    = trim($_POST['phone']);
+    $email    = trim($_POST['email']);
+    $birthdate    = trim($_POST['birthdate']);
+    if (!empty($username) && !empty($password) && !empty($fullname) && !empty($phone) && !empty($birthdate) && !empty($email)) {
         $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $row = $stmt->fetch();
         $count = $stmt->rowCount();
         if ($count == 0) {
-            $stmt = $con->prepare("INSERT INTO users (username, password, fullname) VALUES (?, ?, ?)");
-            $stmt->execute([$username, $password, $fullname]);
+            $stmt = $con->prepare("INSERT INTO users (username, password, fullname, phone, birthdate, email) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$username, $password, $fullname, $phone, $birthdate , $email]);
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $fullname;
+            $_SESSION['phone'] = $fullname;
+            $_SESSION['birthdate'] = $birthdate;
+            $_SESSION['email'] = $email;
             $_SESSION['group-id'] = 0;
             $_SESSION['id'] = $con->lastInsertId();
             header('location: index.php');
@@ -125,12 +131,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
         </div>
-
         <div class="input-group  flex-column">
             <label for="fullname" class="form-label cairo-semibold">اسم المستخدم :</label>
             <input type="text" name="fullname" class="form-control w-100 input-background-signup " id="fullname" placeholder="اسم المستخدم كامل" aria-label="fullname">
         </div>
+        <div class="input-group  flex-column">
+            <label for="email" class="form-label cairo-semibold"> البريد الالكتروني :</label>
+            <input type="email" name="email" class="form-control text-end w-100 input-background-signup " id="email" placeholder="البريد الالكتروني" aria-label="email">
+        </div>
+        <div class="input-group py-1 flex-column">
+            <label for="phone" class="form-label cairo-semibold"> رقم الهاتف :</label>
+            <input type="number" name="phone" class="form-control text-end w-100 input-background-signup " id="phone" placeholder="رقم الهاتف" aria-label="phone">
+        </div>
+        <div class="input-group py-1 flex-column">
+            <label for="birthdate" class="form-label cairo-semibold"> تاريخ الميلاد :</label>
+            <input type="date" name="birthdate" class="form-control text-end w-100 input-background-signup " id="birthdate" placeholder="تاريخ الميلاد9" aria-label="birthdate">
+        </div>
 
+        <script>
+            window.onload = function() {
+                const today = new Date();
+                today.setDate(today.getDate() + 1);
+                const yesterday = today.toISOString().split('T')[0];
+                document.getElementById('birthdate').setAttribute('max', yesterday);
+            };
+        </script>
 
         <button class="btn mt-3 cairo">انشاء حساب</button>
         <div class="py-2">
@@ -159,4 +184,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
 </script>
 
-<?php require_once('includes/layout/footer.php');?>
+<?php require_once('includes/layout/footer.php'); ?>

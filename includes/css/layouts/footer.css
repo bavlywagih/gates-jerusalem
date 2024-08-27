@@ -12,6 +12,7 @@
     font-family: Arial, Tahoma, sans-serif;
     cursor: pointer;
     transition: 0.2s;
+    z-index: 2222 !important;
 }
 
 .up.show {

@@ -19,7 +19,7 @@ if (isset($_SESSION['username'])) {
         exit();
     } else {
 
-    ob_end_flush();
+        ob_end_flush();
 
 ?>
 
@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
                 <button class="btn btn-secondary no-print" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-inset z-0">
+                <ul class="dropdown-menu dropdown-menu-details dropdown-menu-inset z-0">
 
                     <?php
                     if ($_SESSION['group-id'] >= 1) {
@@ -76,33 +76,39 @@ if (isset($_SESSION['username'])) {
                 const url = new URL(window.location.href);
                 const searchParams = new URLSearchParams(url.search);
                 const paramKey = 'gates-jerusalem-Id';
-                let currentId = parseInt(searchParams.get(paramKey));
+                let currentId = parseInt(searchParams.get(paramKey), 10);
 
                 if (!isNaN(currentId)) {
                     currentId += increment;
-                    if (currentId >= 12) {
-                        currentId = 12;
-                    }
-                    if (currentId <= 1) {
-                        currentId = 1;
-                    }
+                    currentId = Math.max(1, Math.min(12, currentId)); // ضمان بقاء القيمة ضمن النطاق
 
                     searchParams.set(paramKey, currentId);
                     url.search = searchParams.toString();
-                    window.location.href = url.toString();
+                    // إضافة تأخير بسيط قبل التوجيه لتفادي مشاكل التحميل
+                    setTimeout(() => {
+                        window.location.href = url.toString();
+                    }, 100); // تأخير 100 ميلي ثانية، يمكن تعديل الوقت حسب الحاجة
                 } else {
                     console.error('Parameter gates-jerusalem-Id is not a valid number.');
                 }
             }
 
-            document.getElementById('increase').addEventListener('click', function() {
-                updateURL(1);
-            });
+            document.addEventListener('DOMContentLoaded', function() {
+                const increaseButton = document.getElementById('increase');
+                const decreaseButton = document.getElementById('decrease');
 
-            document.getElementById('decrease').addEventListener('click', function() {
-                updateURL(-1);
-            });
+                if (increaseButton) {
+                    increaseButton.addEventListener('click', function() {
+                        updateURL(1);
+                    });
+                }
 
+                if (decreaseButton) {
+                    decreaseButton.addEventListener('click', function() {
+                        updateURL(-1);
+                    });
+                }
+            });
 
             function printPage() {
                 window.print();

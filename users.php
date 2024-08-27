@@ -10,29 +10,70 @@ if ($_SESSION['group-id'] != 2) {
     exit();
 }
 require_once "./includes/layout/header.php";
-ob_end_flush();
+require_once "connect.php"; // تأكد من استيراد اتصال قاعدة البيانات
+
+// استعلام لجلب جميع المستخدمين
+$sql = 'SELECT * FROM users';
+$stmt = $pdo->query($sql);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$current_user_id = $_SESSION['id'];
+
 ?>
 <link rel="stylesheet" href="includes/css/pages/users.css">
+<style>
+    .user-card img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    </style>
+<div class="dashboard">
+    <div class="content">
+        <header>
+            <h1 id="page-title">مرحبا بك في لوحة التحكم</h1>
+        </header>
+        <main>
+            <div class="users-list">
+                <?php foreach ($users as $user) {
+                    $user_id = $user['id'];
+
+                    if ($user_id === $current_user_id) {
+                        continue; // تخطي بطاقة المستخدم الحالية
+                    }
+                    // استعلام لجلب الصورة الأكثر حداثة للمستخدم
+                    $query = "SELECT image_path FROM profile_image WHERE user_id = :user_id ORDER BY upload_date DESC LIMIT 1";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->bindParam(':user_id', $user_id);
+                    $stmt->execute();
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-    <div class="dashboard">
-        <div class="content">
-            <header>
-                <h1 id="page-title">مرحبا بك في لوحة التحكم</h1>
-            </header>
-            <main>
-                <div class="users-list">
+                    $image_path = $result ? $result['image_path'] : 'media/profile/user-profile.png';
+
+                ?>
                     <div class="user-card">
-                        <img src="media/profile/user-profile.png" alt="User Image">
-                        <h3>محمد علي</h3>
-                        <p>mohammed@example.com</p>
-                        <a href="#" class="view-details text-white" >عرض التفاصيل</a>
+                        <img src="<?= htmlspecialchars($image_path) ?>" alt="User Image">
+                        <h3><a href="profile.php?id=<?= $user['id'] ?>"><?= htmlspecialchars($user['fullname']) ?></a></h3>
+                        <p><?= htmlspecialchars($user['email']) ?></p>
+                        <a href="#" class="view-details text-white">عرض التفاصيل</a>
                         <div class="user-details">
-                            <p><strong>الهاتف:</strong> 1234567890</p>
-                            <p><strong>العنوان:</strong> شارع الملك فهد، الرياض</p>
+                            <p><strong>الهاتف:</strong> 0<?= htmlspecialchars($user['phone']) ?></p>
+                            <p><strong>تاريخ الميلاد:</strong> <?= htmlspecialchars($user['birthdate']) ?></p>
+                            <p><strong> الحاله:</strong> 
+                                <?php 
+                                if ($user['group-id'] == 0){
+                                    echo "مستخدم";
+                                }elseif ($user['group-id'] == 1) {
+                                    echo "مشرف";
+                                }elseif ($user['group-id'] == 2) {
+                                    echo "سوبر مشرف";
+                                }
+                                ?>
+                            </p>
                         </div>
                     </div>
-
+                <?php } ?>
 
                 <script>
                     // إضافة وظيفة لإظهار أو إخفاء التفاصيل
@@ -46,13 +87,10 @@ ob_end_flush();
                         });
                     });
                 </script>
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
-
-
-
-
+</div>
 
 <?php
 require_once "./includes/layout/footer.php";

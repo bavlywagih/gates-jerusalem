@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 require_once 'connect.php';
 
 if (!isset($_SESSION['username'])) {
@@ -8,26 +9,47 @@ if (!isset($_SESSION['username'])) {
 }
 require_once "./includes/layout/header.php";
 
+if (isset($_GET['id'])){
+    $userId  = $_GET['id'] ;
+}else{
+    $userId  = $_SESSION['id'];
+}
 
-$userId  = $_SESSION['id'];
 $query = "SELECT * FROM users WHERE id = :id LIMIT 1";
 $stmt = $pdo->prepare($query);
 $stmt->bindParam(':id', $userId);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_OBJ);
+if ($user == false){
+    header('Location: profile.php');
+    exit();
+}
+
 
 $userId = $user->id;
 $username = $user->username;
 $fullname = $user->fullname;
+$email = $user->email;
+$birthdate = $user->birthdate;
+$phone = $user->phone;
 $_SESSION['username'] = $user->username;
 $_SESSION['fullname'] = $user->fullname;
+$_SESSION['birthdate'] = $user->birthdate;
 
 $query = "SELECT image_path FROM profile_image WHERE user_id = :user_id ORDER BY upload_date DESC LIMIT 1";
 $stmt = $pdo->prepare($query);
 $stmt->bindParam(':user_id', $userId);
 $stmt->execute();
 $result = $stmt->fetch(PDO::FETCH_OBJ);
+    ob_end_flush();
+
 ?>
+
+<style>
+    .footer {
+        margin-top: 126px;
+    }
+</style>
 
 <!DOCTYPE html>
 <html lang="ar">
@@ -44,17 +66,24 @@ $result = $stmt->fetch(PDO::FETCH_OBJ);
             <a class="nav-link active ms-0" href="#">Profile</a>
         </nav>
         <hr class="mt-0 mb-4">
-        <div class="row row-profile">
+        <div class="row row-profile justify-content-center">
+            <?php if (!isset($_GET['id'])) {?>
+
             <div class="col-xl-4">
                 <form id="uploadForm" class="card-body text-center">
                     <a href="gallery-profile.php">
-                        <img id="profileImage" class="img-account-profile rounded mb-2 text-black" src="<?php if (isset($result->image_path)) {echo htmlspecialchars($result->image_path);}else{echo "media/profile/user-profile.png" ;} ?>" alt="Profile Image">
+                        <img id="profileImage" class="img-account-profile rounded mb-2 text-black" src="<?php if (isset($result->image_path)) {
+                                                                                                            echo htmlspecialchars($result->image_path);
+                                                                                                        } else {
+                                                                                                            echo "media/profile/user-profile.png";
+                                                                                                        } ?>" alt="Profile Image">
                     </a>
                     <input type="file" id="profileImagesInput" name="profile_images[]" accept="image/*" required class="form-control mb-2" multiple>
                     <div class="small font-italic text-muted mb-4">JPG أو PNG بحجم لا يتجاوز 10 ميجابايت</div>
                 </form>
             </div>
-            <div class="col-xl-8">
+            <?php } ?>
+            <div class="col-xl-8 ">
                 <div class="card mb-4">
                     <div class="card-header">تفاصيل الحساب</div>
                     <div class="card-body">
@@ -63,6 +92,18 @@ $result = $stmt->fetch(PDO::FETCH_OBJ);
                             <div class="mb-3">
                                 <label for="fullname" class="form-label">الاسم الكامل</label>
                                 <input type="text" class="form-control" id="fullname" name="fullname" value="<?= htmlspecialchars($user->fullname); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">رقم الهاتف</label>
+                                <input type="number" class="form-control text-end" id="phone" name="phone" value="<?= htmlspecialchars($user->phone); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthdate" class="form-label">رقم الهاتف</label>
+                                <input type="date" class="form-control text-end" id="birthdate" name="birthdate" value="<?= htmlspecialchars($user->birthdate); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">البريد الالكتروني</label>
+                                <input type="email" class="form-control text-end" id="email" name="email" value="<?= htmlspecialchars($user->email); ?>" required>
                             </div>
                             <div id="qrcode" class="d-flex justify-content-center"></div>
                         </form>
