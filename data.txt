@@ -4,6 +4,8 @@
 - liturgy: ليتورجيا (طقس ديني)
 - bishop: أسقف
 - priest: كاهن
+
+
 - deacon: شماس
 - monk: راهب
 - nun: راهبة
