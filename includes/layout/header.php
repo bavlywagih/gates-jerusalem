@@ -1,6 +1,7 @@
 
 <?php
-
+require_once 'connect.php';
+require_once "./maintenance.php";
 $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $currentPageURL = rtrim($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], '/');
 ?>
@@ -16,18 +17,13 @@ $currentPageURL = rtrim($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_UR
         <title>ابواب اورشليم - بافلي وجيه</title>
         <link rel="stylesheet" href="includes/css/index.css">
         <link rel="icon" type="image/x-icon" href="media/img/logo.png" sizes="20x20">
+<script src="https://cdn.tiny.cloud/1/3bmxrokdxh6czakdtc0w6dtq55er625cw8wih2n3v02j4shb/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
         
     </head>
     
-    <body>
-        <div class='spinner-wrapper'>
-            <video width="320" height="240" autoplay muted loop>
-                <source src="media/videos/loading.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="spinner"></div>
-        </div>
-        <?php require_once 'connect.php';
+    <body style="overflow: auto;">
+        <?php 
         require_once "./includes/layout/nav.php";
 
         ?>

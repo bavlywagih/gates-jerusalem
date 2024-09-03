@@ -4,6 +4,7 @@ session_start();
 require_once "./includes/layout/header.php";
 
 
+
 ?>
 
 <section class="main">
@@ -16,9 +17,7 @@ require_once "./includes/layout/header.php";
             <a href="mailto:bavlywagih696@gmail.com"><i class="fa fa-envelope"></i></a>
         </div>
     </div>
-    <div class="index-image-container">
-        <img src="media/img/index.png" class="img-fluid" alt="gates-jerusalem-image">
-    </div>
+
 </section>
 
 <script>
