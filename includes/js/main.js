@@ -11,15 +11,6 @@ span.onclick = function () {
     });
 };
 
-let spinnerWrapper = document.querySelector('.spinner-wrapper');
-
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        spinnerWrapper.remove();
-        document.body.style.overflow = 'auto';
-    }, 1000); 
-});
-
 $(function name(params) {
     'use strict';
     $('[placeholder]').focus(function () {

@@ -1,40 +1,40 @@
-        .img-account-profile {
-            height: 10rem;
-        }
-
-        .rounded-circle {
-            border-radius: 50% !important;
-        }
-
-        .card {
-            box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
-        }
-
-        .card .card-header {
-            font-weight: 500;
-        }
-
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.875rem 1.125rem;
-            font-size: 0.875rem;
-            color: #69707a;
-            background-color: #fff;
-            border: 1px solid #c5ccd6;
-            border-radius: 0.35rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        .nav-borders .nav-link.active {
-            color: #0061f2;
-            border-bottom-color: #0061f2;
-        }
-
-        .container-xl-profile {
-            height: 77%;
-        }
-
-        .row-profile{
-            flex-direction: row-reverse;
+        .img-account-profile {
+            height: 10rem;
+        }
+
+        .rounded-circle {
+            border-radius: 50% !important;
+        }
+
+        .card {
+            box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+        }
+
+        .card .card-header {
+            font-weight: 500;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.125rem;
+            font-size: 0.875rem;
+            color: #69707a;
+            background-color: #fff;
+            border: 1px solid #c5ccd6;
+            border-radius: 0.35rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .nav-borders .nav-link.active {
+            color: #0061f2;
+            border-bottom-color: #0061f2;
+        }
+
+        .container-xl-profile {
+            height: 77%;
+        }
+
+        .row-profile{
+            flex-direction: row-reverse;
         }

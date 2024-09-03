@@ -3,10 +3,10 @@ $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $urlParts = parse_url($currentUrl);
 $path = $urlParts['path'];
 $baseUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . dirname($path);
-$activeHome = $currentPageURL  === $baseUrl  . "/index.php";
-$activeContent = $currentPageURL === $baseUrl  . "/gates-jerusalem.php";
-$activeSearchPage = $currentPageURL === $baseUrl  . "/search.php";
-$activeprofile = $currentPageURL === $baseUrl  . "/profile.php";
+$activeHome = $currentPageURL  === $baseUrl  . "index.php";
+$activeContent = $currentPageURL === $baseUrl  . "gates-jerusalem.php";
+$activeSearchPage = $currentPageURL === $baseUrl  . "search.php";
+$activeprofile = $currentPageURL === $baseUrl  . "profile.php";
 if (isset($_GET["add"])) {
     $url_addPage = "";
     if ($_GET["add"] == "verse") {
@@ -18,14 +18,14 @@ if (isset($_GET["add"])) {
     if ($_GET["add"] == "manyverse") {
         $url_addPage = "manyverse";
     }
-    $activeaddPage = $currentPageURL === $baseUrl  . "/add-pages.php?add=" . $url_addPage;
+    $activeaddPage = $currentPageURL === $baseUrl  . "add-pages.php?add=" . $url_addPage;
 }
 
-$activelogin = $currentPageURL === $baseUrl  . "/login.php";
-$activesignup = $currentPageURL === $baseUrl  . "/signup.php";
+$activelogin = $currentPageURL === $baseUrl  . "login.php";
+$activesignup = $currentPageURL === $baseUrl  . "signup.php";
 
 if (isset($_GET["search"])) {
-    $activeSearch = $currentPageURL === $baseUrl  . "/search.php?search=" . $_GET['search'];
+    $activeSearch = $currentPageURL === $baseUrl  . "search.php?search=" . $_GET['search'];
 } else {
     $activeSearch = ' ';
 }
@@ -36,13 +36,15 @@ if (isset($_GET["search"])) {
 
 <nav class="navbar navbar-expand-lg bg-dark no-print">
     <div class="container-fluid">
-        <a class="navbar-brand text-white d-flex align-items-center link-gates-jerusalem" href="index.php">
-            <img src="media/img/logo.png" class="logo-gates-jerusalem" alt="logo-gates-jerusalem">
-            بافلي
-        </a>
-        <button class="navbar-toggler" type="button" name="toggle-menu" data-bs-toggle="collapse" data-bs-target="#mobileNav">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <div class="d-flex">
+            <a class="navbar-brand text-white d-flex align-items-center link-gates-jerusalem" href="index.php">
+                <img src="media/img/logo.png" class="logo-gates-jerusalem" alt="logo-gates-jerusalem">
+                بافلي
+            </a>
+            <button class="navbar-toggler" type="button" name="toggle-menu" data-bs-toggle="collapse" data-bs-target="#mobileNav">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
         <div class="collapse navbar-collapse" id="mobileNav">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -84,9 +86,9 @@ if (isset($_GET["search"])) {
                         <ul class="dropdown-menu dropdown-menu-mobile" style="right: -120px;">
                             <li><a class="dropdown-item" href="profile.php">الصفحة الشخصيه</a></li>
                             <?php
-                                if ($_SESSION['group-id'] == 2) { ?>
-                                    <li><a class="dropdown-item" href="users.php">المستخدمين</a></li>
-                                <?php }?>
+                            if ($_SESSION['group-id'] == 2) { ?>
+                                <li><a class="dropdown-item" href="users.php">لوحه التحكم</a></li>
+                            <?php } ?>
                             <li><a class="dropdown-item" href="logout.php">تسجيل خروج</a></li>
                         </ul>
                     </div>

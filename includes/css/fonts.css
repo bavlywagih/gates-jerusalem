@@ -1,10 +1,5 @@
-/* Cairo Font - Regular */
-@font-face {
-    font-family: 'Cairo';
-    font-style: normal;
-    font-weight: 400;
-    src: url( '../font/Cairo-bold.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
 
 /* Cairo Font - Medium */
 @font-face {

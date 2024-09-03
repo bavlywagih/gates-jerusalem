@@ -49,6 +49,7 @@
     </div>
 </footer>
 <script type="text/javascript" src="includes/js/tinymce/tinymce.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@2/dist/tinymce-webcomponent.min.js"></script>
 <script type="text/javascript" src="includes/js/jquery.js"></script>
 <script type="text/javascript" src="includes/js/all.min.js"></script>
 <script src="includes/js/popper.min.js"></script>

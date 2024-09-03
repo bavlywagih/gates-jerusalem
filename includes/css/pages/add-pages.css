@@ -1,24 +1,24 @@
-.card-div-add-pages{
-    width: 60%;
-    margin: auto;
-}
-.card-body-div{
-    width: 95%;
-}
-.form-control-textarea{
-    height: 400px;
-}
-.page-img{
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-.remove-image-data-image-id{
-    right: 75px !important;
-}
-.form-control-verse{
-    height: 400px;
-}
-.post-editor-verse{
-    height: 500px;
+.card-div-add-pages{
+    width: 60%;
+    margin: auto;
+}
+.card-body-div{
+    width: 95%;
+}
+.form-control-textarea{
+    height: 400px;
+}
+.page-img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.remove-image-data-image-id{
+    right: 75px !important;
+}
+.form-control-verse{
+    height: 400px;
+}
+.post-editor-verse{
+    height: 500px;
 }

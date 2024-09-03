@@ -53,7 +53,7 @@
     /* Ensure icons are large */
 }
 .dropdown-menu-inset{
-    inset: 0px -128px auto auto !important;
+    inset: 0px -128px auto auto ;
 }
 
 .dropdown-item-details-styles{
