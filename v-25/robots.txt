@@ -1,3 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://jerusalem-gates.42web.io/sitemap.xml
