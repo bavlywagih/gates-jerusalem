@@ -1,0 +1,31 @@
+/* GLOBAL SETTINGS */
+@import "fonts.css";
+@import "global.css";
+@import "vendor/all.min.css";
+@import "vendor/bootstrap.rtl.min.css";
+@import "vendor/bootstrap.min.css";
+@import "vendor/normalize.css";
+
+/* LAYOUTS */
+@import "layouts/scrollbar.css";
+@import "layouts/nav.css";
+@import "layouts/footer.css";
+
+/* COMPONENTS */
+@import "components/loading-spinner.css";
+@import "components/button.css";
+
+/* PAGES */
+@import "pages/home.css";
+@import "pages/gates-jerusalem.css";
+@import "pages/details.css";
+@import "pages/search.css";
+@import "pages/login.css";
+@import "pages/dashboard.css";
+@import "pages/member.css";
+@import "pages/add-pages.css";
+@import "pages/page.css";
+@import "pages/profile.css";
+@import "pages/create-photo.css";
+
+

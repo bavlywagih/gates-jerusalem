@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+
+/* Cairo Font - Medium */
+@font-face {
+    font-family: 'Cairo-SemiBold';
+    font-style: normal;
+    font-weight: 500;
+    src: url( '../font/Cairo-SemiBold.ttf') format('truetype');
+}
+
+/* Harmattan Font - Regular */
+@font-face {
+    font-family: 'Harmattan';
+    font-style: normal;
+    font-weight: 400;
+    src: url( '../font/Harmattan-Bold.ttf') format('truetype');
+}
+
+/* El Messiri Font - Bold */
+@font-face {
+    font-family: 'El Messiri';
+    font-style: normal;
+    font-weight: 700;
+    src: url( '../font/ElMessiri-Bold.ttf') format('truetype');
+}
+
+
+.cairo {
+    font-family: 'Cairo', sans-serif !important;
+}
+
+.cairo-semibold {
+    font-family: 'Cairo-SemiBold', sans-serif !important;
+}
+
+.el-messiri {
+    font-family: 'El Messiri', sans-serif !important;
+    font-weight: 700;
+}
+
+.harmattan {
+    font-family: 'Harmattan', sans-serif !important;
+}
+
+.f-w-b{
+    font-weight: bold !important;
+}
